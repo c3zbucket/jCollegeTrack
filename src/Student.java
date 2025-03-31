@@ -12,8 +12,48 @@ public class Student {
         this.studentID = studentID;
     }
 
+    public int getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(int studentID){
+        if (studentID < 1000) {
+            System.out.println("Invalid Student ID entered, try again");
+        }
+        this.studentID = studentID;
+    }
+
+    public String getFname() {
+        return Fname;
+    }
+
+    public void setFname() {
+        this.Fname = Fname;
+    }
+    public String getLname() {
+        return Lname;
+    }
+
+    public void setLname() {
+        this.Lname = Lname;
+    }
+    public String getPhoneNo() {
+        return PhoneNo;
+    }
+
+    public void setPhoneNo() {
+        this.PhoneNo = PhoneNo;
+    }
+
+    public String displayRecord() {
+        return "ID: " + studentID + " | Name: " + Fname + " " + Lname + " | Phone No: " + PhoneNo;
+    }
+
+
     public static void main(String[] args) {
         Student student =  new Student("John", "Cavern", "07562507987", 189734);
         System.out.println("Student created successfully");
+        System.out.println(student.getLname());
+        System.out.println(student.displayRecord());
     }
 }
