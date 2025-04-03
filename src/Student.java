@@ -4,7 +4,7 @@ public class Student {
     private String Fname;
     private String Lname;
     private String PhoneNo; // Needs input validation to ensure length is strictly 11 characters, assume in report that all students have UK numbers
-    protected int studentID; // input val as it needs to be pos int
+    protected static int studentID; // input val as it needs to be pos int
 
     // Individual Student contstrutor class
     public Student(int studentID, String Fname, String Lname, String PhoneNo) {

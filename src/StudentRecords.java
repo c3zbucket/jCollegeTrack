@@ -11,7 +11,7 @@ public class StudentRecords {
     }
 
     // Enroll a student to the list
-    public void enroll(Student student) {
+    public void add(Student student) {
         studentList.add(student);
 
     }
