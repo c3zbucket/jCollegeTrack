@@ -10,6 +10,7 @@ public class CourseRecords {
 
     }
 
+    /*
     // Add a course to the list
     public void add(Course course ){
         CourseList.add(course);
@@ -85,5 +86,7 @@ public class CourseRecords {
             System.out.println(course.displayRecord());
         }
     }
+    */
+
 }
 

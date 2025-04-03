@@ -10,6 +10,7 @@ public class StudentRecords {
 
     }
 
+    /*
     // Enroll a student to the list
     public void add(Student student) {
         studentList.add(student);
@@ -49,10 +50,10 @@ public class StudentRecords {
                     if (student.getLname().toLowerCase().contains(searchQuery.toLowerCase())) {
                         System.out.println(student.displayRecord());
                     }
-                    /* else if (student == studentList.size()){
+                    else if (student == studentList.size()){
 
                     }
-                    */
+
                     else if (!found) {
                         System.out.println("Student with that surname was not found, maybe try forename?");
                     }
@@ -102,5 +103,5 @@ public class StudentRecords {
             System.out.println(student.displayRecord());
         }
     }
-
+    */
 }

@@ -1,6 +1,6 @@
-public class CollegeTrackTest {
+public class CollegeTest {
 
-    public CollegeTrackTest() {
+    public CollegeTest() {
 
     }
 

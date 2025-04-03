@@ -1,46 +1,46 @@
 public class Course {
     // Attributes declaration
 
-    protected int CourseID; // input val as it needs to be pos int;
-    private String Title;
-    private double CourseFee; // Needs input validation to ensure length is strictly 11 characters, assume in report that all students have UK numbers
+    protected int courseID; // input val as it needs to be pos int;
+    private String title;
+    private double courseFee; // Needs input validation to ensure length is strictly 11 characters, assume in report that all students have UK numbers
 
     // Individual Student constructor class
-    public Course(int CourseID, String Title, double CourseFee) {
-        this.CourseID = CourseID;
-        this.Title = Title;
-        this.CourseFee = CourseFee;
+    public Course(int courseID, String title, double courseFee) {
+        this.courseID = courseID;
+        this.title = title;
+        this.courseFee = courseFee;
     }
 
     public int getCourseID() {
-        return CourseID;
+        return courseID;
     }
 
-    public void setCourseID(int CourseID) {
-        if (CourseID < 1000) {
+    public void setCourseID(int courseID) {
+        if (courseID < 1000) {
             System.out.println("Invalid Course ID entered; try again");
         }
-        this.CourseID = CourseID;
+        this.courseID = courseID;
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String Title) {
-        this.Title = Title;
+        this.title = title;
     }
 
     public double getCourseFee() {
-        return CourseFee;
+        return courseFee;
     }
 
-    public void setCourseFee(double CourseFee) {
-        this.CourseFee = CourseFee ;
+    public void setCourseFee(double courseFee) {
+        this.courseFee = courseFee;
     }
 
     public String displayRecord() {
-        return "ID: " + CourseID + " | Name: " + Title + " | Fee: " + CourseFee;
+        return "ID: " + courseID + " | Name: " + title + " | Fee: " + courseFee;
     }
 
 
