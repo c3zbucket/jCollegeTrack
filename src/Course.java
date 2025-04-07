@@ -40,7 +40,7 @@ public class Course {
     }
 
     public String displayRecord() {
-        return "ID: " + courseID + " | Name: " + title + " | Fee: " + courseFee;
+        return "ID: " + "CRS-" + courseID + " | Name: " + title + " | Fee: " + courseFee;
     }
 
 

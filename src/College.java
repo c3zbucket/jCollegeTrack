@@ -1,16 +1,18 @@
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class College {
 
     protected ArrayList<Student> studentList;
     protected ArrayList<Course> courseList;
-    protected ArrayList<Integer> enrolList;
+    protected ArrayList<Enrolment>enrolList;
 
     public College() {
 
         courseList = new ArrayList<>();
         studentList = new ArrayList<>();
-        enrolList = new ArrayList<Integer>();
+        enrolList = new ArrayList<>();
 
     }
 
@@ -169,6 +171,58 @@ public class College {
         }
     }
 
+    //#######################################################################
+    // ENROLMENT METHODS
+    //#######################################################################
+
+    public void enrol(int studentID, int courseID, GregorianCalendar enrolDate){
+        if (studentID < 1000 || courseID < 1000 ){
+            println("Invalid IDs input, try again");
+        }
+        else {
+            boolean found = false;
+            Student targetStudent = null;
+            Course targetCourse = null;
+            for (Student student : studentList) {
+                if (student.getStudentID() == studentID) {
+                    targetStudent = student;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                println("Student with that ID is not in the list");
+            }
+            found = false;
+            for (Course course : courseList) {
+                if (course.getCourseID() == courseID) {
+                    targetCourse = course;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                println("Course with that ID is not in the list");
+            }
+            if (targetStudent != null && targetCourse != null) {
+                enrolList.add(new Enrolment(studentID, courseID, enrolDate));
+                println("Student has been enrolled");
+            }
+        }
+    }
+
+    public void outputEnrolments() {
+         for (Enrolment enrol : enrolList){
+             println(enrol.displayRecord());
+         }
+    }
+
+
+
+    public void println(String s){
+        System.out.println(s);
+    }
+
     public static void main(String[] args){
         College Class1 = new College();
         Class1.add(new Student(1234,"Michael Townsley","098329823"));
@@ -192,6 +246,7 @@ public class College {
         Class1.add(new Course(4125, "Artificial Intelligence", 12.50));
         Class1.add(new Course(4367, "Web Development", 10.25));
         Class1.outputCourses();
+        /*
         System.out.println("-----------------------------------------------------------------");
         Class1.studentIDSearch(4267);
         System.out.println();
@@ -209,6 +264,11 @@ public class College {
         System.out.println("-----------------------------------------------------------------");
         Class1.studentIDRemove(1234);
         Class1.outputStudents();
+         */
+
+        Class1.enrol(2935,4367,(new GregorianCalendar(2009,05,20)));
+        Class1.enrol(7591,3412,(new GregorianCalendar(2012,07,19)));
+        Class1.outputEnrolments();
 
     }
 

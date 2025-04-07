@@ -1,19 +1,45 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 
 public class Enrolment extends College {
 
     // Initialise arrays as attributes for objects from Student and Course class; Initialise Course ArrayList to store them
+    private int studentID;
+    private int courseID;
     // Assign GregorianCalender library as a datatype for the enrolment date
     private GregorianCalendar enrolDate;
+    private SimpleDateFormat formatDate;
 
     // Enrolment constructor class for Enrollment ArrayList and Date attribute
-    public Enrolment(GregorianCalendar enrolDate) {
+    public Enrolment(int studentID, int courseID, GregorianCalendar enrolDate) {
+        this.studentID = studentID;
+        this.courseID = courseID;
         enrolList = new ArrayList<>();
-        this.enrolDate = this.enrolDate;
+        this.enrolDate = enrolDate;
     }
 
+
+    protected int getStudentID() {
+        return studentID;
+    }
+
+    protected int getCourseID() {
+        return courseID;
+    }
+
+    protected String getDate(){
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
+        String dateString = formatDate.format(enrolDate.getTime());
+        return dateString;
+    }
+
+    public void setDate(GregorianCalendar enrolDate) {
+        this.enrolDate = enrolDate;
+    }
+
+    /*
     // Object referencing via passing Student and Course classes as parameters
     public void enrolAdd(String studentQuery, String courseQuery){
         Iterator<Student> studentIt = studentList.iterator();
@@ -46,25 +72,14 @@ public class Enrolment extends College {
         }
     }
 
-    public GregorianCalendar getDate() {
-        return enrolDate;
+     */
+
+    public String displayRecord() {
+        return "Student with the ID: " + getStudentID() + " has been enrolled in course: " + "CRS-" + getCourseID() + " since " + getDate();
     }
 
-    public void setDate(GregorianCalendar enrolDate) {
-        this.enrolDate = enrolDate;
-    }
 
-    public void outputEnrolment(GregorianCalendar enrolDate) {
-        Iterator<Student> studentIt = studentList.iterator();
-        Iterator<Course> courseIt = courseList.iterator();
-        Iterator<Integer> enrolIt = enrolList.iterator();
-        while (studentIt.hasNext() && courseIt.hasNext() && enrolIt.hasNext()) {
-            Course course = courseIt.next();
-            if (enrolList.get(course.getCourseID()).toString().contains(enrolDate.toString()) && studentList.contains(enrolDate)) {
-                // System.out.println(enrolList.get(course.next()));
-            }
-        }
-    }
+
 
 
 }
