@@ -42,7 +42,7 @@ public class Student {
     }
 
     public String displayRecord() {
-        return "ID: " + studentID + " | Name: " + name + " | Phone No: " + PhoneNo;
+        return "Student ID: " + studentID + " | Name: " + name + " | Phone No: " + PhoneNo;
     }
 
     public static void main(String[] args) {

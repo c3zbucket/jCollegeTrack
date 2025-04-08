@@ -5,8 +5,7 @@ public class CollegeTest {
     }
 
 
-    public static void main(String[] args){
-       StudentRecords test1 = new StudentRecords();
+    //public static void main(String[] args){
+      // StudentRecords test1 = new StudentRecords();
     }
 
-}

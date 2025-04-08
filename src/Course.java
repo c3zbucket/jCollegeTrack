@@ -39,8 +39,10 @@ public class Course {
         this.courseFee = courseFee;
     }
 
+
+
     public String displayRecord() {
-        return "ID: " + "CRS-" + courseID + " | Name: " + title + " | Fee: " + courseFee;
+        return "Course ID: " + "CRS-" + courseID + " | Name: " + title + " | Fee: " + courseFee;
     }
 
 

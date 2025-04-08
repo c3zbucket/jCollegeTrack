@@ -1,13 +1,24 @@
+/**
+ * Import required libraries
+ */
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Main class that handles and maintains all collections
+ * @author Mueez Ahmad
+ * @version
+ */
 public class College {
 
     protected ArrayList<Student> studentList;
     protected ArrayList<Course> courseList;
     protected ArrayList<Enrolment>enrolList;
 
+    /**
+     * Constructor method for arraylists
+     */
     public College() {
 
         courseList = new ArrayList<>();
@@ -20,13 +31,18 @@ public class College {
     // STUDENT METHODS
     //#######################################################################
 
-    // Enroll a student to the list
+    /**
+     * Enroll a student to the list
+     * @param student Create new student instance
+     */
     public void add(Student student) {
         studentList.add(student);
-
     }
 
-    // Remove a student from the list
+    /**
+     * Remove a student with a given name
+     * @param searchQuery Name to remove
+     */
     public void studentNameRemove(String searchQuery) {
         boolean found = false;
         for (Student student : studentList){
@@ -41,7 +57,10 @@ public class College {
         }
     }
 
-    // Remove a student with a given ID
+    /**
+     * Remove a student with a given ID
+     * @param IDQuery ID of the student to remove
+     */
     public void studentIDRemove(int IDQuery) {
         boolean found = false;
         for (int i = 0; i < studentList.size(); i++) {
@@ -56,7 +75,9 @@ public class College {
         }
     }
 
-    // Check number of joined students
+    /**
+     * Check number of joined students
+     */
     public void studentCount() {
         if (studentList.isEmpty()) {
             System.out.println("No students found");
@@ -64,7 +85,10 @@ public class College {
         System.out.println("There are: " + studentList.size() + " student(s) enrolled in the college currently");
     }
 
-    // Search all students that match by name; and output if they do
+    /**
+     * Search all students that match by name; and output if they do
+     * @param searchQuery Name to search students of
+     */
     public void studentNameSearch(String searchQuery) {
         boolean found = false;
         for (Student student : studentList) {
@@ -79,7 +103,10 @@ public class College {
         }
     }
 
-    // Search for a student with a name; and output if it is found
+    /**
+     * Search for a student with an ID; and output if it is found
+     * @param IDQuery ID of the student to search for
+     */
     public void studentIDSearch(int IDQuery) {
         boolean found = false;
         for (Student student : studentList) {
@@ -94,7 +121,9 @@ public class College {
         }
     }
 
-    // Output all students
+    /**
+     * Output all students
+     */
     public void outputStudents() {
         for (Student student : studentList){
             System.out.println(student.displayRecord());
@@ -105,13 +134,20 @@ public class College {
     // COURSE METHODS
     //#######################################################################
 
-    // Add a course to the list
-    public void add(Course course ){
+    /**
+     * Add a course to the list
+     * @param course The course that will be added
+     */
+    public void add(Course course){
         courseList.add(course);
-
+        println("Course:  " + course.getTitle() + " has been added");
     }
 
-    // Check number of Courses
+
+
+    /**
+     * Check number of Courses
+     */
     public void courseCount() {
         if (courseList.isEmpty()){
             System.out.println("Course list is empty.");
@@ -119,7 +155,10 @@ public class College {
         System.out.println("There are: " + courseList.size() + " course(s) being taught");
     }
 
-    // Search all courses that match a query; and output if found
+    /**
+     * Search all courses that match a query; and output if foundA
+     * @param searchQuery Name to search by
+     */
     public void courseNameSearch(String searchQuery) {
         boolean found = false;
         for (Course course : courseList) {
@@ -134,7 +173,10 @@ public class College {
             }
         }
 
-    // Search for a course with a specified ID number; and output if found
+    /**
+     * Search for a course with a specified ID number; and output if found
+     * @param IDQuery ID of the student you want to remove
+     */
     public void courseIDSearch(int IDQuery) {
         boolean found = false;
             for (Course course : courseList) {
@@ -149,7 +191,26 @@ public class College {
         }
     }
 
-    // Remove a specified course by ID
+    /**
+     * Remove a specified course by name
+     * @param courseQuery The name of the course
+     */
+    public void nameRemove(String courseQuery){
+        for (Enrolment encourse : enrolList){
+            encourse.setCourseID(0000);
+        }
+        for (int i = 0; i < courseList.size(); i++){
+            if (courseList.contains(courseQuery)){
+                println("Course:  " + courseList.get(i).getTitle() + "with ID: " + courseList.get(i).getCourseID() + " has been removed");
+                courseList.remove(i);
+            }
+        }
+    }
+
+    /**
+     * Remove a specified course by ID
+     * @param IDQuery ID of the course to remove
+     */
     public void courseIDRemove(int IDQuery) {
         boolean found = false;
         for (int i = 0; i < courseList.size(); i++){
@@ -164,7 +225,9 @@ public class College {
         }
     }
 
-    // Output a list of all courses
+    /**
+     * Output all courses taught
+     */
     public void outputCourses() {
         for (Course course : courseList){
             System.out.println(course.displayRecord());
@@ -181,11 +244,8 @@ public class College {
         }
         else {
             boolean found = false;
-            Student targetStudent = null;
-            Course targetCourse = null;
             for (Student student : studentList) {
                 if (student.getStudentID() == studentID) {
-                    targetStudent = student;
                     found = true;
                     break;
                 }
@@ -196,7 +256,6 @@ public class College {
             found = false;
             for (Course course : courseList) {
                 if (course.getCourseID() == courseID) {
-                    targetCourse = course;
                     found = true;
                     break;
                 }
@@ -204,21 +263,59 @@ public class College {
             if (!found) {
                 println("Course with that ID is not in the list");
             }
-            if (targetStudent != null && targetCourse != null) {
+            else {
                 enrolList.add(new Enrolment(studentID, courseID, enrolDate));
-                println("Student has been enrolled");
+                SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
+                String dateString = formatDate.format(enrolDate.getTime());
+                println("Student with the ID: " + studentID + " has been enrolled in the course: " + courseID + " on: " + dateString);
             }
         }
     }
 
-    public void outputEnrolments() {
-         for (Enrolment enrol : enrolList){
-             println(enrol.displayRecord());
-         }
+    /**
+     * Withdraw a given student from a specified course
+     * @param studentID Student ID to withdraw
+     * @param courseID Course ID to withdraw from
+     */
+    public void withdraw(int studentID, int courseID) {
+        if (studentID < 1000 || courseID < 1000) {
+            println("Invalid IDs input, try again");
+        }
+        else {
+            boolean found = false;
+            for (Enrolment student : enrolList) {
+                if (student.getStudentID() == studentID && student.getCourseID() == courseID) {
+                    println("Student with ID: " + student.getStudentID() + " has been withdrawn from course: " + student.getCourseID());
+                    enrolList.remove(student);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                println("The student with the ID is not enrolled in this course; or the course does not exist");
+            }
+        }
     }
 
+    /**
+     * Output all enrolments
+     */
+    public void outputEnrolments() {
+        for (Student student : studentList) {
+            for (Course course : courseList) {
+                for (Enrolment enrol : enrolList) {
+                    if (enrol.getStudentID() == student.getStudentID() && enrol.getCourseID() == course.getCourseID() ) {
+                        println(enrol.displayRecord(student, course));
+                    }
+                }
+            }
+        }
+    }
 
-
+    /**
+     * Convenience method for string output
+     * @param s The string you want to output
+     */
     public void println(String s){
         System.out.println(s);
     }
@@ -227,16 +324,16 @@ public class College {
         College Class1 = new College();
         Class1.add(new Student(1234,"Michael Townsley","098329823"));
         Class1.add(new Student(1894,"Beany Beanio","098329973"));
-        Class1.add(new Student(2045, "Jennifer Brown", "555-123-4567"));
-        Class1.add(new Student(3156, "David Rodriguez", "555-234-5678"));
-        Class1.add(new Student(4267, "Samantha Lee", "555-345-6789"));
-        Class1.add(new Student(5378, "Ahmed Khan", "555-456-7890"));
-        Class1.add(new Student(6489, "Priya Patel", "555-567-8901"));
-        Class1.add(new Student(7591, "Ryan Chen", "555-678-9012"));
-        Class1.add(new Student(8602, "Olivia Wilson", "555-789-0123"));
-        Class1.add(new Student(9713, "Jamal Washington", "555-890-1234"));
-        Class1.add(new Student(1824, "Sophia Garcia", "555-901-2345"));
-        Class1.add(new Student(2935, "Noah Kim", "555-012-3456"));
+        Class1.add(new Student(2045, "Jennifer Brown", "075891234"));
+        Class1.add(new Student(3156, "David Rodriguez", "073425678"));
+        Class1.add(new Student(4267, "Samantha Lee", "079345678"));
+        Class1.add(new Student(5378, "Ahmed Khan", "071456789"));
+        Class1.add(new Student(6489, "Priya Patel", "077567890"));
+        Class1.add(new Student(7591, "Ryan Chen", "074678901"));
+        Class1.add(new Student(8602, "Olivia Wilson", "072789012"));
+        Class1.add(new Student(9713, "Jamal Washington", "078890123"));
+        Class1.add(new Student(1824, "Sophia Garcia", "076901234"));
+        Class1.add(new Student(2935, "Maddie Kim", "073012345"));
         Class1.outputStudents();
         System.out.println("-----------------------------------------------------------------");
         Class1.add(new Course(1893, "OOP Programming", 10.56));
@@ -246,7 +343,7 @@ public class College {
         Class1.add(new Course(4125, "Artificial Intelligence", 12.50));
         Class1.add(new Course(4367, "Web Development", 10.25));
         Class1.outputCourses();
-        /*
+
         System.out.println("-----------------------------------------------------------------");
         Class1.studentIDSearch(4267);
         System.out.println();
@@ -264,10 +361,14 @@ public class College {
         System.out.println("-----------------------------------------------------------------");
         Class1.studentIDRemove(1234);
         Class1.outputStudents();
-         */
+
 
         Class1.enrol(2935,4367,(new GregorianCalendar(2009,05,20)));
         Class1.enrol(7591,3412,(new GregorianCalendar(2012,07,19)));
+        Class1.enrol(6489, 3278, new GregorianCalendar(2018, 04,20));
+        Class1.enrol(6489, 4125, (new GregorianCalendar(2018, 05, 19)));
+        Class1.enrol(7591, 3278, (new GregorianCalendar(2018, 04, 20)));
+        System.out.println("-------------------------------------------------------------------------------------------");
         Class1.outputEnrolments();
 
     }
