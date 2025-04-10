@@ -313,7 +313,7 @@ public class CollegeTest {
         /**Run test method 3*/
         // st.test_004c();
 
-
+        st.test_005ac();
 
         /**Run test method 4b*/
         // st.test_004b(searchQuery);
@@ -324,7 +324,8 @@ public class CollegeTest {
      * Convenience method for string output
      * @param s The string you want to output
      */
-    public static void println(String s) {
+
+    public void println(String s) {
         System.out.println(s);
     }
 }

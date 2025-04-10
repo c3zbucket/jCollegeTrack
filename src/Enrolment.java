@@ -32,7 +32,7 @@ public class Enrolment extends College {
     public Enrolment(int studentID, int courseID, GregorianCalendar enrolDate) {
         this.studentID = studentID;
         this.courseID = courseID;
-        enrolList = new ArrayList<>();
+       // enrolList = new ArrayList<>();
         this.enrolDate = enrolDate;
     }
 
