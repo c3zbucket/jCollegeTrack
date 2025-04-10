@@ -47,13 +47,13 @@ public class College {
         boolean found = false;
         for (Student student : studentList){
             if (student.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-                System.out.println("Student with query: " + "'" + searchQuery + "'" +" has been removed");
+                println("Student with query: " + "'" + searchQuery + "'" +" has been removed");
                 studentList.remove(student);
                 found = true;
             }
         }
         if (!found){
-            System.out.println("Student with query: " + "'" + searchQuery + "'" + " was not found");
+            println("Student with query: " + "'" + searchQuery + "'" + " was not found");
         }
     }
 
@@ -65,13 +65,13 @@ public class College {
         boolean found = false;
         for (int i = 0; i < studentList.size(); i++) {
             if (IDQuery == studentList.get(i).getStudentID()) {
-                System.out.println("Removing student: " + studentList.get(i).getName());
+                println("Removing student: " + studentList.get(i).getName());
                 studentList.remove(i);
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("Student with the entered ID was not found");
+            println("Student with the entered ID was not found");
         }
     }
 
@@ -80,9 +80,9 @@ public class College {
      */
     public void studentCount() {
         if (studentList.isEmpty()) {
-            System.out.println("No students found");
+            println("No students found");
         }
-        System.out.println("There are: " + studentList.size() + " student(s) enrolled in the college currently");
+        println("There are: " + studentList.size() + " student(s) enrolled in the college currently");
     }
 
     /**
@@ -93,13 +93,13 @@ public class College {
         boolean found = false;
         for (Student student : studentList) {
             if (student.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-                System.out.println("Student with query: " + "'" + searchQuery + "'" + " was found:");
-                System.out.println(student.displayRecord());
+                println("Student with query: " + "'" + searchQuery + "'" + " was found:");
+                println(student.displayRecord());
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("Student with that name was not found, recheck your search and try again.");
+            println("Student with that name was not found, recheck your search and try again.");
         }
     }
 
@@ -111,13 +111,13 @@ public class College {
         boolean found = false;
         for (Student student : studentList) {
             if (student.getStudentID() == IDQuery) {
-                System.out.println("Student with ID: " + "'" + IDQuery + "'" + " was found:");
-                System.out.println(student.displayRecord());
+                println("Student with ID: " + "'" + IDQuery + "'" + " was found:");
+                println(student.displayRecord());
                 found = true;
             }
         }
         if (!found) {
-            System.out.println("Student with the entered ID was not found");
+            println("Student with the entered ID was not found");
         }
     }
 
@@ -126,7 +126,7 @@ public class College {
      */
     public void outputStudents() {
         for (Student student : studentList){
-            System.out.println(student.displayRecord());
+            println(student.displayRecord());
         }
     }
 
@@ -150,9 +150,9 @@ public class College {
      */
     public void courseCount() {
         if (courseList.isEmpty()){
-            System.out.println("Course list is empty.");
+            println("Course list is empty.");
         }
-        System.out.println("There are: " + courseList.size() + " course(s) being taught");
+        println("There are: " + courseList.size() + " course(s) being taught");
     }
 
     /**
@@ -163,13 +163,13 @@ public class College {
         boolean found = false;
         for (Course course : courseList) {
             if (course.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
-                System.out.println("Course with query: " + "'" + searchQuery + "'" + " was found:");
-                System.out.println(course.displayRecord());
+                println("Course with query: " + "'" + searchQuery + "'" + " was found:");
+                println(course.displayRecord());
                 found = true;
             }
         }
             if (!found) {
-                System.out.println("Course with that name was not found.");
+                println("Course with that name was not found.");
             }
         }
 
@@ -181,13 +181,13 @@ public class College {
         boolean found = false;
             for (Course course : courseList) {
                 if (course.getCourseID() == IDQuery) {
-                    System.out.println("Course with ID: " + "'" + IDQuery + "'" + " was found:");
-                    System.out.println(course.displayRecord());
+                    println("Course with ID: " + "'" + IDQuery + "'" + " was found:");
+                    println(course.displayRecord());
                     found = true;
                 }
             }
         if (!found) {
-            System.out.println("Course with the entered ID was not found");
+            println("Course with the entered ID was not found");
         }
     }
 
@@ -215,12 +215,12 @@ public class College {
         boolean found = false;
         for (int i = 0; i < courseList.size(); i++){
             if (IDQuery == courseList.get(i).getCourseID()) {
-                System.out.println("Removing course: " + courseList.get(i).getTitle());
+                println("Removing course: " + courseList.get(i).getTitle());
                 courseList.remove(i);
                 found = true;
             }
             if (!found){
-                System.out.println("Course with the entered ID was not found");
+                println("Course with the entered ID was not found");
             }
         }
     }
@@ -230,7 +230,7 @@ public class College {
      */
     public void outputCourses() {
         for (Course course : courseList){
-            System.out.println(course.displayRecord());
+            println(course.displayRecord());
         }
     }
 
@@ -316,7 +316,7 @@ public class College {
      * Convenience method for string output
      * @param s The string you want to output
      */
-    public void println(String s){
+    public static void println(String s){
         System.out.println(s);
     }
 
@@ -336,12 +336,36 @@ public class College {
         Class1.add(new Student(2935, "Maddie Kim", "073012345"));
         Class1.outputStudents();
         System.out.println("-----------------------------------------------------------------");
-        Class1.add(new Course(1893, "OOP Programming", 10.56));
-        Class1.add(new Course(2156, "Data Structures and Algorithms", 11.25));
-        Class1.add(new Course(3278, "Database Management Systems", 10.75));
-        Class1.add(new Course(3412, "Computer Networks", 11.00));
-        Class1.add(new Course(4125, "Artificial Intelligence", 12.50));
-        Class1.add(new Course(4367, "Web Development", 10.25));
+        Class1.add(new Course(1893, "OOP Programming", "Computer Science", 10000.56));
+        Class1.add(new Course(2156, "Data Structures and Algorithms", "Computer Science", 11000.25));
+        Class1.add(new Course(3278, "Database Management Systems", "Computer Science", 10000.75));
+        Class1.add(new Course(3412, "Computer Networks", "Computer Science", 11000.00));
+        Class1.add(new Course(4125, "Artificial Intelligence", "Computer Science", 12000.50));
+        Class1.add(new Course(4367, "Web Development", "Computer Science", 10000.25));
+
+        Class1.add(new Course(2201, "Calculus and Analysis", "Mathematics", 9500.00));
+        Class1.add(new Course(2305, "Linear Algebra", "Mathematics", 9000.75));
+        Class1.add(new Course(2410, "Discrete Mathematics", "Mathematics", 9200.50));
+        Class1.add(new Course(2515, "Probability and Statistics", "Mathematics", 9800.25));
+        Class1.add(new Course(2620, "Number Theory", "Mathematics", 9300.00));
+
+        Class1.add(new Course(3501, "Quantum Physics", "Science", 10500.00));
+        Class1.add(new Course(3605, "Organic Chemistry", "Science", 10800.75));
+        Class1.add(new Course(3710, "Molecular Biology", "Science", 11200.50));
+        Class1.add(new Course(3815, "Astronomy and Astrophysics", "Science", 10600.25));
+        Class1.add(new Course(3920, "Environmental Science", "Science", 9900.00));
+
+        Class1.add(new Course(5101, "Human Anatomy", "Medicine", 13500.00));
+        Class1.add(new Course(5205, "Pharmacology", "Medicine", 14000.75));
+        Class1.add(new Course(5310, "Clinical Medicine", "Medicine", 15200.50));
+        Class1.add(new Course(5415, "Medical Ethics", "Medicine", 12600.25));
+        Class1.add(new Course(5520, "Public Health", "Medicine", 13900.00));
+
+        Class1.add(new Course(4701, "Structural Engineering", "Engineering", 12500.00));
+        Class1.add(new Course(4805, "Electrical Circuits", "Engineering", 12800.75));
+        Class1.add(new Course(4910, "Mechanical Systems", "Engineering", 13200.50));
+        Class1.add(new Course(5015, "Chemical Engineering", "Engineering", 12600.25));
+        Class1.add(new Course(5120, "Civil Engineering Design", "Engineering", 12900.00));
         Class1.outputCourses();
 
         System.out.println("-----------------------------------------------------------------");
