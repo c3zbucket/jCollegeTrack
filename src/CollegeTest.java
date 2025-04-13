@@ -1,5 +1,13 @@
+/**Import required libraries*/
+
+import java.text.ParseException;
 import java.util.GregorianCalendar;
 
+/**
+ * Class to handle tests to showcase functionality meeting user requirements
+ * @author Mueez Ahmad
+ * @version 10/04/2025
+ */
 public class CollegeTest {
 
     /**
@@ -8,7 +16,8 @@ public class CollegeTest {
     public CollegeTest() {
     }
 
-    // To minimise code length, some user requirement test cases have been combined
+    // To minimise code length, some user requirement tests have been combined
+
     /**
      * Test method 1a,1c |
      * Adding and outputting students
@@ -31,7 +40,6 @@ public class CollegeTest {
         println("--------------------------------- Test 1b  ----------------------------------");
         College st = new College();
         populateStudents(st);
-        studentIDSearch(st, IDQuery);
         studentIDSearch(st, IDQuery);
         println("--------------------------------- Test 1b  ----------------------------------");
     }
@@ -66,23 +74,24 @@ public class CollegeTest {
      * Test method 3a |
      * Return student object with given student ID number
      */
-    public void test_003b(int IDQuery) {
+    public void test_003a(int IDQuery) {
         println("Test 3a | Return student object with given student ID number ----------------");
-        println("--------------------------------- Test 3b  ----------------------------------");
+        println("--------------------------------- Test 3a  ----------------------------------");
         College st = new College();
         studentIDSearch(st, IDQuery);
-        println("--------------------------------- Test 3b  ----------------------------------");
+        println("--------------------------------- Test 3a  ----------------------------------");
     }
 
     /**
      * Test method 3b |
      * Output students that match a given surname
      */
-    public void test_003b() {
+    public void test_003b(String searchQuery) {
         println("Test 3b | Outputting Students That Match a Given Surname -------------------");
         println("--------------------------------- Test 3b  ----------------------------------");
         College st = new College();
-        studentNameSearch(st, "Fritz");
+        populateStudents(st);
+        studentNameSearch(st, searchQuery);
         println("--------------------------------- Test 3b  ----------------------------------");
     }
 
@@ -119,7 +128,7 @@ public class CollegeTest {
         println("Test 4b | Outputting Courses That Match a Given Search String ---------------");
         println("--------------------------------- Test 4b  ----------------------------------");
         College st = new College();
-        courseNameSearch(st,searchQuery);
+        courseNameSearch(st, searchQuery);
         println("--------------------------------- Test 4b  ----------------------------------");
     }
 
@@ -146,13 +155,13 @@ public class CollegeTest {
         populateStudents(st);
         populateCourses(st);
         enrolStudents(st);
-        printEnrolments(st);
+        printAllEnrols(st);
         println("--------------------------------- Test 5a/5c  ------------------------------");
     }
 
     /**
      * Test method 5b |
-     * Removing an enrolment for a given student and course ID numbers
+     * Removing an enrolment for given student and course ID numbers
      */
     public void test_005b(int studentIDQuery, int courseIDQuery) {
         println("Test 5b | Removing an Enrolment For Given IDs ------------------------------");
@@ -161,9 +170,7 @@ public class CollegeTest {
         populateStudents(st);
         populateCourses(st);
         enrolStudents(st);
-        printEnrolments(st);
-        withdraw(st, studentIDQuery,courseIDQuery);
-        printEnrolments(st);
+        withdraw(st, studentIDQuery, courseIDQuery);
         println("--------------------------------- Test 5b  ---------------------------------");
     }
 
@@ -171,17 +178,46 @@ public class CollegeTest {
      * Test method 6a |
      * Outputting enrolments made between given dates
      */
-    public void test_006a(int studentIDQuery, int courseIDQuery) {
+    public void test_006a(String startDate, String endDate) throws ParseException {
         println("Test 6a | Outputting Enrolments Between Given Dates ------------------------");
         println("--------------------------------- Test 6a  ---------------------------------");
         College st = new College();
         populateStudents(st);
         populateCourses(st);
+        printStudents(st);
         enrolStudents(st);
-        printEnrolments(st);
-        withdraw(st, studentIDQuery,courseIDQuery);
-        printEnrolments(st);
+        printEnrolments(st, startDate, endDate);
         println("--------------------------------- Test 6a  ---------------------------------");
+    }
+
+    /**
+     * Additional Functionality Test method 6oa |
+     * Outputting enrolments under a student with a given surname
+     */
+    public void test_006oa(String searchQuery) {
+        println("Test 6oa | Outputting Enrolments Under a Given Surname ----------------------");
+        println("--------------------------------- Test 6oa  ---------------------------------");
+        College st = new College();
+        populateStudents(st);
+        populateCourses(st);
+        enrolStudents(st);
+        enrolmentNameSearch(st, searchQuery);
+        println("--------------------------------- Test 6oa  ---------------------------------");
+    }
+
+    /**
+     * Additional Functionality Test method 6ob |
+     * Outputting enrolments under a student with a given ID
+     */
+    public void test_006ob(int IDQuery) {
+        println("Test 6ob | Outputting Enrolments Under a Given ID ---------------------------");
+        println("--------------------------------- Test 6ob  ---------------------------------");
+        College st = new College();
+        populateStudents(st);
+        populateCourses(st);
+        enrolStudents(st);
+        enrolmentIDSearch(st, IDQuery);
+        println("--------------------------------- Test 6ob  ---------------------------------");
     }
 
     /**
@@ -190,146 +226,286 @@ public class CollegeTest {
      */
     public void populateStudents(College st) {
         println("************ Populating Students ************");
-        st.add(new Student(1876, "Leon Kennedy", "07562508987"));
-        st.add(new Student(1234, "Michael Townsley", "098329823"));
-        st.add(new Student(1894, "Beany Beanio", "098329973"));
-        st.add(new Student(2045, "Jennifer Brown", "075891234"));
-        st.add(new Student(3156, "David Rodriguez", "073425678"));
-        st.add(new Student(4267, "Samantha Lee", "079345678"));
-        st.add(new Student(8973, "Makoto Yuki", "073018975"));
-        st.add(new Student(5378, "Ahmed Khan", "071456789"));
-        st.add(new Student(6489, "Priya Patel", "077567890"));
-        st.add(new Student(8973, "Cal Enders", "089018989"));
-        st.add(new Student(7591, "Ryan Chen", "074678901"));
-        st.add(new Student(8602, "Olivia Wilson", "072789012"));
-        st.add(new Student(9713, "Jamal Washington", "078890123"));
-        st.add(new Student(1824, "Sophia Garcia", "076901234"));
-        st.add(new Student(2935, "Maddie Kim", "073012345"));
-        println("************ Populating Students ************");
-    }
-
-    public void populateCourses(College st) {
-        println("************ Populating Courses *************");
-        st.add(new Course(1893, "OOP Programming", "Computer Science", 10000.56));
-        st.add(new Course(2156, "Data Structures and Algorithms", "Computer Science", 11000.25));
-        st.add(new Course(3278, "Database Management Systems", "Computer Science", 10000.75));
-        st.add(new Course(3412, "Computer Networks", "Computer Science", 11000.00));
-        st.add(new Course(4125, "Artificial Intelligence", "Computer Science", 12000.50));
-        st.add(new Course(4367, "Web Development", "Computer Science", 10000.25));
-
-        st.add(new Course(2201, "Calculus and Analysis", "Mathematics", 9500.00));
-        st.add(new Course(2305, "Linear Algebra", "Mathematics", 9000.75));
-        st.add(new Course(2410, "Discrete Mathematics", "Mathematics", 9200.50));
-        st.add(new Course(2515, "Probability and Statistics", "Mathematics", 9800.25));
-        st.add(new Course(2620, "Number Theory", "Mathematics", 9300.00));
-
-        st.add(new Course(3501, "Quantum Physics", "Science", 10500.00));
-        st.add(new Course(3605, "Organic Chemistry", "Science", 10800.75));
-        st.add(new Course(3710, "Molecular Biology", "Science", 11200.50));
-        st.add(new Course(3815, "Astronomy and Astrophysics", "Science", 10600.25));
-        st.add(new Course(3920, "Environmental Science", "Science", 9900.00));
-
-        st.add(new Course(5101, "Human Anatomy", "Medicine", 13500.00));
-        st.add(new Course(5205, "Pharmacology", "Medicine", 14000.75));
-        st.add(new Course(5310, "Clinical Medicine", "Medicine", 15200.50));
-        st.add(new Course(5415, "Medical Ethics", "Medicine", 12600.25));
-        st.add(new Course(5520, "Public Health", "Medicine", 13900.00));
-
-        st.add(new Course(4701, "Structural Engineering", "Engineering", 12500.00));
-        st.add(new Course(4805, "Electrical Circuits", "Engineering", 12800.75));
-        st.add(new Course(4910, "Mechanical Systems", "Engineering", 13200.50));
-        st.add(new Course(5015, "Chemical Engineering", "Engineering", 12600.25));
-        st.add(new Course(5120, "Civil Engineering Design", "Engineering", 12900.00));
+        st.add(new Student("Leon Kennedy", "07562508987"));
+        st.add(new Student("Michael Townsley", "098329823"));
+        st.add(new Student("Beany Beanio", "098329973"));
+        st.add(new Student("Jennifer Brown", "075891234"));
+        st.add(new Student("David Rodriguez", "073425678"));
+        st.add(new Student("Samantha Lee", "079345678"));
+        st.add(new Student("Makoto Yuki", "073018975"));
+        st.add(new Student("Ahmed Khan", "071456789"));
+        st.add(new Student("Priya Patel", "077567890"));
+        st.add(new Student("Cal Enders", "089018989"));
+        st.add(new Student("Ryan Chen", "074678901"));
+        st.add(new Student("Olivia Wilson", "072789012"));
+        st.add(new Student("Jamal Washington", "078890123"));
+        st.add(new Student("Sophia Garcia", "076901234"));
+        st.add(new Student("Maddie Kim", "073012345"));
         println("*********************************************");
     }
 
-    public void enrolStudents(College st){
-        st.enrol(2935,4367,(new GregorianCalendar(2009,05,20)));
-        st.enrol(7591,3412,(new GregorianCalendar(2012,07,19)));
-        st.enrol(6489, 3278, new GregorianCalendar(2018, 04,20));
-        st.enrol(6489, 4125, (new GregorianCalendar(2018, 05, 19)));
-        st.enrol(7591, 3278, (new GregorianCalendar(2018, 04, 20)));
+    /**
+     * Populate the college with courses
+     * @param st an object instance of the college class
+     */
+    public void populateCourses(College st) {
+        println("************ Populating Courses *************");
+        st.add(new Course("OOP Programming", "COMP", 10000.56));
+        st.add(new Course("Data Structures and Algorithms", "COMP", 11000.25));
+        st.add(new Course("Database Management Systems", "COMP", 10000.75));
+        st.add(new Course("Computer Networks", "COMP", 11000.00));
+        st.add(new Course("Artificial Intelligence", "COMP", 12000.50));
+        st.add(new Course("Web Development", "COMP", 10000.25));
+
+        st.add(new Course("Calculus and Analysis", "MATH", 9500.00));
+        st.add(new Course("Linear Algebra", "MATH", 9000.75));
+        st.add(new Course("Discrete Mathematics", "MATH", 9200.50));
+        st.add(new Course("Probability and Statistics", "MATH", 9800.25));
+        st.add(new Course("Number Theory", "MATH", 9300.00));
+
+        st.add(new Course("Quantum Physics", "SCIE", 10500.00));
+        st.add(new Course("Organic Chemistry", "SCIE", 10800.75));
+        st.add(new Course("Molecular Biology", "SCIE", 11200.50));
+        st.add(new Course("Astronomy and Astrophysics", "SCIE", 10600.25));
+        st.add(new Course("Environmental Science", "SCIE", 9900.00));
+
+        st.add(new Course("Human Anatomy", "MEDI", 13500.00));
+        st.add(new Course("Pharmacology", "MEDI", 14000.75));
+        st.add(new Course("Clinical Medicine", "MEDI", 15200.50));
+        st.add(new Course("Medical Ethics", "MEDI", 12600.25));
+        st.add(new Course("Public Health", "MEDI", 13900.00));
+
+        st.add(new Course("Structural Engineering", "ENGI", 12500.00));
+        st.add(new Course("Electrical Circuits", "ENGI", 12800.75));
+        st.add(new Course("Mechanical Systems", "ENGI", 13200.50));
+        st.add(new Course("Chemical Engineering", "ENGI", 12600.25));
+        st.add(new Course("Civil Engineering Design", "ENGI", 12900.00));
+        println("*********************************************");
     }
 
-    public void printStudents(College st){
+
+
+    /**
+     * Populate the college with enrolments
+     *
+     * @param st an object instance of the college class
+     */
+    public void enrolStudents(College st) {
+        println("************ Enroling Students *************");
+        st.enrol(1001, 437, (new GregorianCalendar(2009, 05, 20)));
+        st.enrol(1006, 342, (new GregorianCalendar(2012, 07, 19)));
+        st.enrol(1006, 328, new GregorianCalendar(2018, 04, 20));
+        st.enrol(1007, 415, (new GregorianCalendar(2018, 05, 19)));
+        st.enrol(1010, 328, (new GregorianCalendar(2018, 04, 20)));
+        println("********************************************");
+    }
+
+    /**
+     * Output students in the college
+     *
+     * @param st an object instance of the college class
+     */
+    public void printStudents(College st) {
         println("********************** Students ***********************");
         st.outputStudents();
         println("*******************************************************");
     }
 
-    public void printCourses(College st){
-        println("********************** Students ***********************");
+    /**
+     * Output courses in the college
+     *
+     * @param st an object instance of the college class
+     */
+    public void printCourses(College st) {
+        println("********************** Courses ************************");
         st.outputCourses();
         println("*******************************************************");
     }
 
-    public void studentNameSearch(College st, String nameQuery){
-       st.studentNameSearch(nameQuery);
+    /**
+     * Output students matching a search query
+     *
+     * @param st        an object instance of the college class
+     * @param nameQuery the surname of the student to be searched
+     */
+    public void studentNameSearch(College st, String nameQuery) {
+        st.studentNameSearch(nameQuery);
     }
 
-    public void courseNameSearch(College st, String nameQuery){
+    /**
+     * Output courses matching a search query
+     *
+     * @param st        an object instance of the college class
+     * @param nameQuery the name of the course to be searched
+     */
+    public void courseNameSearch(College st, String nameQuery) {
         st.courseNameSearch(nameQuery);
     }
 
-    public void printEnrolments(College st){
-        st.outputEnrolments();
+    /**
+     * Output enrolments that match a given surname
+     *
+     * @param st          an object instance of the college class
+     * @param searchQuery surname of the student you want to find enrolments for
+     */
+    public void enrolmentNameSearch(College st, String searchQuery) {
+        st.nameEnrolments(searchQuery);
     }
 
-    public void studentIDSearch(College st, int IDQuery){
+    /**
+     * Output enrolments that match a given surname
+     *
+     * @param st      an object instance of the college class
+     * @param IDQuery ID of the student you want to find enrolments for
+     */
+    public void enrolmentIDSearch(College st, int IDQuery) {
+        st.studentIDEnrols(IDQuery);
+    }
+
+    /**
+     * Output enrolments made between two given dates
+     *
+     * @param st        an object instance of the college class
+     * @param startDate start date to compare to enrolment date
+     * @param endDate   end date to compare to enrolment date
+     */
+    public void printEnrolments(College st, String startDate, String endDate) throws ParseException {
+        st.outputEnrolments(startDate, endDate);
+    }
+
+    /**
+     * Output all enrolments
+     *
+     * @param st an object instance of the college class
+     */
+    public void printAllEnrols(College st) {
+        st.allEnrols();
+    }
+
+    /**
+     * Output a student with the matching ID
+     *
+     * @param st      an object instance of the college class
+     * @param IDQuery ID of the student to be searched
+     */
+    public void studentIDSearch(College st, int IDQuery) {
         st.studentIDSearch(IDQuery);
     }
 
-    public void courseIDSearch(College st, int IDQuery){
+    /**
+     * Output a course with the matching ID
+     *
+     * @param st      an object instance of the college class
+     * @param IDQuery ID of the course to be searched
+     */
+    public void courseIDSearch(College st, int IDQuery) {
         st.courseIDSearch(IDQuery);
     }
 
-    public void studentIDRemove(College st, int IDQuery){
+    /**
+     * Remove a student with a given ID
+     *
+     * @param st      an object instance of the college class
+     * @param IDQuery ID of the student to be removed
+     */
+    public void studentIDRemove(College st, int IDQuery) {
         st.studentIDRemove(IDQuery);
     }
 
-    public void courseIDRemove(College st, int IDQuery){
+    /**
+     * Remove a course with a given ID
+     *
+     * @param st      an object instance of the college class
+     * @param IDQuery ID of the course to be removed
+     */
+    public void courseIDRemove(College st, int IDQuery) {
         st.courseIDRemove(IDQuery);
     }
 
-    public void withdraw(College st, int studentIDQuery, int courseIDQuery){
+    /**
+     * Withdraw a student from a course with a given student ID and course ID
+     *
+     * @param st             an object instance of the college class
+     * @param studentIDQuery ID of the student to remove course from
+     * @param courseIDQuery  ID of the course to remove them from
+     */
+    public void withdraw(College st, int studentIDQuery, int courseIDQuery) {
         st.withdraw(studentIDQuery, courseIDQuery);
-    }
-
-    public static void main(String[] args) {
-        /**
-         * Creating an object of type CollegeTest to run test methods
-         */
-        CollegeTest st = new CollegeTest();
-
-        /**Run test method 1*/
-        // st.test_001();
-
-        /**Run test method 2*/
-        // st.test_002();
-
-        /**Run test method 3*/
-        // st.test_003();
-
-        /**Run test method 3*/
-        // st.test_004c();
-
-        st.test_005ac();
-
-        /**Run test method 4b*/
-        // st.test_004b(searchQuery);
-
     }
 
     /**
      * Convenience method for string output
+     *
      * @param s The string you want to output
      */
-
     public void println(String s) {
         System.out.println(s);
     }
+
+
+    /**
+     * Main method to execute tests
+     * @param args standard placeholder arguments for a java class to function
+     */
+    public static void main(String[] args) throws ParseException {
+
+        /**Creating an object of type CollegeTest to run test methods*/
+        CollegeTest st = new CollegeTest();
+
+        /**Run test method 1a,1c - Add and output students*/
+        //st.test_001ac();
+
+        /**Run test method 1b - Searching for a student with ID*/
+        //st.test_001b(1010);
+
+            //Entering an ID not in the records
+            //st.test_001b(1089);
+
+            //Entering an invalid ID (Lower than 1000 or higher than 9999)
+            //st.test_001b(89789);
+
+        /**Run test method 2a, 2c - Add and output courses */
+        st.test_002ac();
+
+            //Entering an invalid course ID (Lower than 100 or higher than 999)
+            //st.test_002ac();
+
+        /**Run test method 2b - Search for a courses with an ID*/
+        //st.test_002b(1004);
+
+        /**Run test method 3a - Return a student with a given ID*/
+        //st.test_003a(1012);
+
+        /**Run test method 3b - Output students that match a given surname*/
+        //st.test_003b("Brown");
+
+        /**Run test method 3c - Remove a student with a given ID*/
+        //st.test_003c(1011);
+
+        /**Run test method 4a - Return a course with a given ID*/
+        //st.test_004c(2398);
+
+        /**Run test method 4b - Output courses that match a given name*/
+        //st.test_004c(2398);
+
+        /**Run test method 4c - Remove a course with a given ID*/
+        //st.test_004c(2398);
+
+        /**Run test method 5a,5c - Enrol students and outputting their enrolments*/
+        //st.test_005ac();
+
+        /**Run test method 5b - Removing an enrolment for given student and course ID numbers*/
+        //st.test_005b(1015, 9287);
+
+        /**Run test method 6a - Output enrolments made between given dates */
+        //st.test_006a("23-89-2017", "other test");
+
+        /**Run additional functionality test method 6a - Output enrolments made under a given student surname */
+        //st.test_006oa("Kim");
+
+        /**Run additional functionality test method 6a - Output enrolments made under a given student ID */
+        //st.test_006ob(9238);
+
+    }
+
 }
-
-    //public static void main(String[] args){
-      // StudentRecords test1 = new StudentRecords();
-

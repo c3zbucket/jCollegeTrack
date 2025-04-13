@@ -2,14 +2,16 @@
 /**
  * Import required libraries
  */
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
  * Main class that handles and maintains all collections
  * @author Mueez Ahmad
- * @version
+ * @version 10/04/2025
  */
 public class College {
 
@@ -28,6 +30,34 @@ public class College {
 
     }
 
+    /**
+     * Method to check if Student ID inputs are valid
+     * @param IDQuery the student ID to check validity for
+     * @return if validity of th input student ID
+     */
+    public boolean validStudentID(int IDQuery) {
+        boolean isValid = true;
+        if (IDQuery < 1000 || IDQuery > 9999) {
+            System.out.println("Invalid ID entered, try again");
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    /**
+     * Method to check if Course ID inputs are valid
+     * @param IDQuery the course ID to check validity for
+     * @return if validity of th input course ID
+     */
+    public boolean validCourseID(int IDQuery) {
+        boolean isValid = true;
+        if (IDQuery < 100 || IDQuery > 999) {
+            System.out.println("Invalid ID entered, try again");
+            isValid = false;
+        }
+        return isValid;
+    }
+
     //#######################################################################
     // STUDENT METHODS
     //#######################################################################
@@ -41,13 +71,13 @@ public class College {
     }
 
     /**
-     * Remove a student with a given name
-     * @param searchQuery Name to remove
+     * Remove a student with a given surname
+     * @param searchQuery surname to remove
      */
     public void studentNameRemove(String searchQuery) {
         boolean found = false;
         for (Student student : studentList){
-            if (student.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+            if (student.getName().equalsIgnoreCase(searchQuery)) {
                 println("Student with query: " + "'" + searchQuery + "'" +" has been removed");
                 studentList.remove(student);
                 found = true;
@@ -63,16 +93,18 @@ public class College {
      * @param IDQuery ID of the student to remove
      */
     public void studentIDRemove(int IDQuery) {
-        boolean found = false;
-        for (int i = 0; i < studentList.size(); i++) {
-            if (IDQuery == studentList.get(i).getStudentID()) {
-                println("Removing student: " + studentList.get(i).getName());
-                studentList.remove(i);
-                found = true;
+        if (validStudentID(IDQuery)){
+            boolean found = false;
+            for (int i = 0; i < studentList.size(); i++) {
+                if (IDQuery == studentList.get(i).getStudentID()) {
+                    println("Removing student: " + studentList.get(i).getName());
+                    studentList.remove(i);
+                    found = true;
+                }
             }
-        }
-        if (!found) {
-            println("Student with the entered ID was not found");
+            if (!found) {
+                println("Student with the entered ID was not found");
+            }
         }
     }
 
@@ -93,8 +125,12 @@ public class College {
     public void studentNameSearch(String searchQuery) {
         boolean found = false;
         for (Student student : studentList) {
-            if (student.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+            /*Compare the input name with the item of the index 1 in names, ergo the surname.
+            * This allows for you to input a full name regularly, for convenience,  without the need of a separate attribute for surnames
+            * */
+            if (student.getName().substring(student.getName().lastIndexOf(" ") + 1).equalsIgnoreCase(searchQuery)) {
                 println("Student with query: " + "'" + searchQuery + "'" + " was found:");
+                println("");
                 println(student.displayRecord());
                 found = true;
             }
@@ -109,16 +145,21 @@ public class College {
      * @param IDQuery ID of the student to search for
      */
     public void studentIDSearch(int IDQuery) {
-        boolean found = false;
-        for (Student student : studentList) {
-            if (student.getStudentID() == IDQuery) {
-                println("Student with ID: " + "'" + IDQuery + "'" + " was found:");
-                println(student.displayRecord());
-                found = true;
+        boolean invalidID = false;
+        if (validStudentID(IDQuery)) {
+            if (!invalidID) {
+                boolean found = false;
+                for (Student student : studentList) {
+                    if (student.getStudentID() == IDQuery) {
+                        println("Student with ID: " + "'" + IDQuery + "'" + " was found:");
+                        println(student.displayRecord());
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    println("Student with the entered ID was not found, recheck your search and try again.");
+                }
             }
-        }
-        if (!found) {
-            println("Student with the entered ID was not found");
         }
     }
 
@@ -139,18 +180,16 @@ public class College {
      * Add a course to the list
      * @param course The course that will be added
      */
-    public void add(Course course){
-        courseList.add(course);
-        println("Course:  " + course.getTitle() + " has been added");
+    public void add(Course course) {
+                courseList.add(course);
+                println("Course:  " + course.getTitle() + ", under department: " + course.getDept() +  " has been added");
     }
-
-
 
     /**
      * Check number of Courses
      */
-    public void courseCount() {
-        if (courseList.isEmpty()){
+    public void courseCount () {
+        if (courseList.isEmpty()) {
             println("Course list is empty.");
         }
         println("There are: " + courseList.size() + " course(s) being taught");
@@ -160,26 +199,27 @@ public class College {
      * Search all courses that match a query; and output if foundA
      * @param searchQuery Name to search by
      */
-    public void courseNameSearch(String searchQuery) {
+    public void courseNameSearch (String searchQuery){
         boolean found = false;
         for (Course course : courseList) {
-            if (course.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
+            if (course.getTitle().equalsIgnoreCase(searchQuery)) {
                 println("Course with query: " + "'" + searchQuery + "'" + " was found:");
                 println(course.displayRecord());
                 found = true;
             }
         }
-            if (!found) {
-                println("Course with that name was not found.");
-            }
+        if (!found) {
+            println("Course with that name was not found.");
         }
+    }
 
     /**
      * Search for a course with a specified ID number; and output if found
      * @param IDQuery ID of the student you want to remove
      */
     public void courseIDSearch(int IDQuery) {
-        boolean found = false;
+        if (validStudentID(IDQuery)) {
+            boolean found = false;
             for (Course course : courseList) {
                 if (course.getCourseID() == IDQuery) {
                     println("Course with ID: " + "'" + IDQuery + "'" + " was found:");
@@ -187,8 +227,9 @@ public class College {
                     found = true;
                 }
             }
-        if (!found) {
-            println("Course with the entered ID was not found");
+            if (!found) {
+                println("Course with the entered ID was not found");
+            }
         }
     }
 
@@ -213,15 +254,17 @@ public class College {
      * @param IDQuery ID of the course to remove
      */
     public void courseIDRemove(int IDQuery) {
-        boolean found = false;
-        for (int i = 0; i < courseList.size(); i++){
-            if (IDQuery == courseList.get(i).getCourseID()) {
-                println("Removing course: " + courseList.get(i).getTitle());
-                courseList.remove(i);
-                found = true;
-            }
-            if (!found){
-                println("Course with the entered ID was not found");
+       if (validStudentID(IDQuery)){
+            boolean found = false;
+            for (int i = 0; i < courseList.size(); i++) {
+                if (IDQuery == courseList.get(i).getCourseID()) {
+                    println("Removing course: " + courseList.get(i).getTitle());
+                    courseList.remove(i);
+                    found = true;
+                }
+                if (!found) {
+                    println("Course with the entered ID was not found");
+                }
             }
         }
     }
@@ -279,10 +322,7 @@ public class College {
      * @param courseID Course ID to withdraw from
      */
     public void withdraw(int studentID, int courseID) {
-        if (studentID < 1000 || courseID < 1000) {
-            println("Invalid IDs input, try again");
-        }
-        else {
+        if (validStudentID(studentID) && validStudentID(courseID)){
             boolean found = false;
             for (Enrolment student : enrolList) {
                 if (student.getStudentID() == studentID && student.getCourseID() == courseID) {
@@ -301,18 +341,98 @@ public class College {
     /**
      * Output all enrolments
      */
-    public void outputEnrolments() {
+    public void allEnrols() {
+        boolean found = false;
         for (Student student : studentList) {
             for (Course course : courseList) {
                 for (Enrolment enrol : enrolList) {
                     if (enrol.getStudentID() == student.getStudentID() && enrol.getCourseID() == course.getCourseID() ) {
-                        println(enrol.displayRecord(student, course));
+                            println(enrol.displayRecord(student, course));
+                            found = true;
                     }
                 }
             }
         }
+        if (!found) {
+            println("Enrolments between those dates were not found");
+        }
     }
 
+    /**
+     * Output all enrolments between given dates
+     * @param startDate Start of date range to compare to (in DD-MM-YYYY)
+     * @param endDate end of date range to compare to (in DD-MM-YYYY)
+     * @throws ParseException for avoiding a ParseException error with parsing the formatted dates
+     */
+    public void outputEnrolments(String startDate, String endDate) throws ParseException {
+        boolean found = false;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Date startD = format.parse(startDate);
+        Date endD = format.parse(endDate);
+        for (Student student : studentList) {
+            for (Course course : courseList) {
+                for (Enrolment enrol : enrolList) {
+                    if (enrol.getStudentID() == student.getStudentID() && enrol.getCourseID() == course.getCourseID() ) {
+                        if (enrol.compareDate(startD, endD)){
+                            println(enrol.displayRecord(student, course));
+                            found = true;
+                        }
+                    }
+                }
+            }
+        }
+       if (!found) {
+           println("Enrolments between those dates were not found");
+       }
+    }
+
+    /**
+     * Output enrolments for a given surname
+     * @param searchQuery the surname of the student you want to search for
+     */
+    public void nameEnrolments(String searchQuery)  {
+        boolean found = false;
+        for (Student student : studentList) {
+            for (Course course : courseList) {
+                for (Enrolment enrol : enrolList) {
+                    if (enrol.getStudentID() == student.getStudentID() && enrol.getCourseID() == course.getCourseID()) {
+                        if (student.getName().equalsIgnoreCase(searchQuery)){
+                            println(enrol.displayRecord(student, course));
+                            found = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (!found) {
+            println("Enrolments between those dates were not found");
+        }
+    }
+    /**
+     * Output enrolments for a given student ID
+     * @param IDQuery student ID to find enrolments for
+     */
+    public void studentIDEnrols(int IDQuery)  {
+        if (validStudentID(IDQuery)) {
+            boolean found = false;
+            for (Student student : studentList) {
+                for (Course course : courseList) {
+                    for (Enrolment enrol : enrolList) {
+                        if (enrol.getStudentID() == student.getStudentID() && enrol.getCourseID() == course.getCourseID()) {
+                            if (student.getStudentID() == IDQuery) {
+                                println(enrol.displayRecord(student, course));
+                                found = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!found) {
+                println("Enrolments between those dates were not found");
+            }
+        }
+    }
     /**
      * Convenience method for string output
      * @param s The string you want to output
@@ -320,7 +440,7 @@ public class College {
     public static void println(String s){
         System.out.println(s);
     }
-
+/*
     public static void main(String[] args){
         College Class1 = new College();
         Class1.add(new Student(1234,"Michael Townsley","098329823"));
@@ -397,5 +517,6 @@ public class College {
         Class1.outputEnrolments();
 
     }
+ */
 
 }

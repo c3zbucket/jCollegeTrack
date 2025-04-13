@@ -7,30 +7,119 @@ import java.text.DecimalFormat;
  */
 public class Course {
     // Attributes declaration
-    /** ID of the course*/
-    protected int courseID; // input val as it needs to be pos int;
-    /** Title of the course*/
-    private String title;
-    /** Type of the course*/
-    private String type;
-    /** Fees of the course*/
-    private double courseFee; // Needs input validation to ensure length is strictly 11 characters, assume in report that all students have UK numbers
 
+    /**
+     * ID of the course
+     */
+    protected int courseID; // input val as it needs to be pos int;
+
+    /**
+     * Title of the course
+     */
+    private String title;
+
+    /**
+     * Type of the course
+     */
+    private String dept;
+
+    /**
+     * Fees of the course
+     */
+    private double courseFee;
+
+    /**
+     * IDs for each department to iterate from
+     */
+    private static int compID = 100;
+    private static int mathID = 200;
+    private static int engiID = 300;
+    private static int scieID = 400;
+    private static int mediID = 500;
+    private static int physID = 600;
+    private static int desiID = 700;
 
     /**
      * Individual Student constructor method
      *
-     * @param courseID  ID of the course
      * @param title     title of the course
-     * @param type      type of the course
+     * @param dept      dept of the course
      * @param courseFee fee of the course
      */
-    public Course(int courseID, String title, String type, double courseFee) {
-        this.courseID = courseID;
+    public Course(String title, String dept, double courseFee) {
+        this.courseID = courseIDGen(dept);
         this.title = title;
-        this.type = type;
+        this.dept = dept;
         this.courseFee = courseFee;
     }
+
+    /**
+     * Method to generate course ID depending on it's department
+     * @param dept department of the course to generate the ID for, if valid
+     */
+    public int courseIDGen(String dept) {
+        switch (dept) {
+            case "COMP":
+                compID++;
+                if (compID > 199) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = compID;
+                    return courseID;
+                }
+            case "MATH":
+                mathID = mathID++;
+                if (mathID > 299) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = mathID;
+                    return courseID;
+                }
+            case "ENGI":
+                engiID++;
+                if (engiID > 399) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = engiID;
+                    return courseID;
+                }
+            case "SCIE":
+                scieID++;
+                if (scieID > 499) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = scieID;
+                    return courseID;
+                }
+            case "MEDI":
+                mediID++;
+                if (mediID > 599) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = mediID;
+                    return courseID;
+                }
+            case "PHYS":
+                physID++;
+                if (physID > 699) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = physID;
+                    return courseID;
+                }
+            case "DESI":
+                desiID++;
+                if (desiID > 799) {
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+                } else {
+                    this.courseID = desiID;
+                    return courseID;
+                }
+            default:
+                    throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
+        }
+    }
+
     /**
      * Accessor to return a course's ID
      * @return ID of the course
@@ -49,6 +138,7 @@ public class Course {
         }
         this.courseID = courseID;
     }
+
     /**
      * Accessor to return a course's title
      * @return title of the course
@@ -58,27 +148,40 @@ public class Course {
     }
 
     /**
-     * Mutator to set the type of the course
+     * Mutator to set the title of the course
      * @param title title of the course
      */
     public void setTitle(String title) {
-        this.type = this.title;
+        this.title = title;
     }
 
     /**
-     * Accessor to return a course's type
-     * @return type of the course
+     * Accessor to return a course's dept
+     * @return dept of the course
      */
-    public String getType() {
-        return type;
+    public String getDept() {
+        switch(dept){
+            case "COMP":
+                return "Computing";
+            case "MATH":
+                return "Mathematics";
+            case "SCIE":
+                return "Science";
+            case "ENGI":
+                return "Engineering";
+            case "DESI":
+                return "Art & Design";
+            default:
+                return "Other";
+        }
     }
 
     /**
-     * Mutator to set the type of the course
-     * @param type type of the course
+     * Mutator to set the dept of the course
+     * @param dept type of the course
      */
-    public void setType(String type) {
-        this.type = title;
+    public void setDept(String dept) {
+        this.dept = dept;
     }
 
     /**
@@ -101,7 +204,7 @@ public class Course {
      * @return a record of the course including corresponding details.
      */
     public String displayRecord() {
-        return "Course ID: " + "CRS-" + courseID + " | Name: " + title + " | Type: " + type + " | Fee: " + "£" + getCourseFee();
+        return "Course ID: " + "CRS-" + getCourseID() + " | Name: " + title + " | Department: " + getDept() + " | Fee: " + "£" + getCourseFee();
     }
 
 }

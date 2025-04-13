@@ -1,20 +1,19 @@
 /**
  * Import required libraries
  */
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Child class that handles enrolments
  * @author Mueez Ahmad
  * @version
  */
-public class Enrolment extends College {
+public class Enrolment {
 
-    /**
-     * Initialise arrays as attributes for objects from Student and Course class; Initialise Course ArrayList to store them
-     */
     /**The ID of the enrolled student*/
     private int studentID;
     /**The ID of the enrolled student's course*/
@@ -32,7 +31,6 @@ public class Enrolment extends College {
     public Enrolment(int studentID, int courseID, GregorianCalendar enrolDate) {
         this.studentID = studentID;
         this.courseID = courseID;
-       // enrolList = new ArrayList<>();
         this.enrolDate = enrolDate;
     }
 
@@ -74,6 +72,17 @@ public class Enrolment extends College {
     }
 
     /**
+     * Compare an enrolment with a given range of dates
+     * @param startD
+     * @param endD
+     * @return
+     */
+  protected boolean compareDate(Date startD, Date endD) throws ParseException {
+      Date enrolD = enrolDate.getTime();
+      return (enrolD.compareTo(startD) >= 0 && enrolD.compareTo(endD) <= 0);
+   }
+
+    /**
      * Mutator to set the date of enrolment
      * @param enrolDate the date of the enrolment
      */
@@ -88,7 +97,7 @@ public class Enrolment extends College {
      * @return Enrolment records for the student
      */
     public String displayRecord(Student student, Course course) {
-        println("-------------------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------------------");
         return student.displayRecord() + "\n" +
                 course.displayRecord() + "\n" +
                 "Enrolled in: " + getDate() + "\n" +
