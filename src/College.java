@@ -2,11 +2,10 @@
 /**
  * Import required libraries
  */
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.util.Iterator;
 
 /**
  * Main class that handles and maintains all collections
@@ -75,11 +74,20 @@ public class College {
      * @param searchQuery surname to remove
      */
     public void studentNameRemove(String searchQuery) {
+        Iterator<Student> stIterator = studentList.iterator();
         boolean found = false;
-        for (Student student : studentList){
-            if (student.getName().equalsIgnoreCase(searchQuery)) {
-                println("Student with query: " + "'" + searchQuery + "'" +" has been removed");
-                studentList.remove(student);
+        //Loop throughout the student arraylist with iterator
+        while (stIterator.hasNext()) {
+            Student student = stIterator.next();
+            /*Compare the input name with the last item of the index in names, ergo the surname.
+             * This allows for you to input a full name regularly, for convenience,  without the need of a separate attribute for surnames
+             * Reference: Le Callonnec, S. (2013). Java: Getting a substring from a string starting after a particular character. [online] Stack Overflow. Available at: https://stackoverflow.com/a/14316548.
+             * */
+            if (student.getName().substring(student.getName().lastIndexOf(" ") + 1).equalsIgnoreCase(searchQuery)) {
+                println("Student with query: " + "'" + searchQuery + "'" + " was found:");
+                student.displayRecord();
+                stIterator.remove();
+                // Declare as true if the student matching the query was found
                 found = true;
             }
         }
@@ -93,12 +101,14 @@ public class College {
      * @param IDQuery ID of the student to remove
      */
     public void studentIDRemove(int IDQuery) {
+        Iterator<Student> stIterator = studentList.iterator();
         if (validStudentID(IDQuery)){
             boolean found = false;
-            for (int i = 0; i < studentList.size(); i++) {
-                if (IDQuery == studentList.get(i).getStudentID()) {
-                    println("Removing student: " + studentList.get(i).getName());
-                    studentList.remove(i);
+            while (stIterator.hasNext()) {
+                Student student = stIterator.next();
+                if (IDQuery == student.getStudentID()) {
+                    println("Removing student: " + student.getName() + " (ID: " + student.getStudentID() + ")");
+                    stIterator.remove();
                     found = true;
                 }
             }
@@ -119,14 +129,17 @@ public class College {
     }
 
     /**
-     * Search all students that match by name; and output if they do
+     * Search all students that match by surname; and output if they do
      * @param searchQuery Name to search students of
      */
     public void studentNameSearch(String searchQuery) {
+        Iterator<Student> stIterator = studentList.iterator();
         boolean found = false;
-        for (Student student : studentList) {
-            /*Compare the input name with the item of the index 1 in names, ergo the surname.
+        while (stIterator.hasNext()) {
+            Student student = stIterator.next();
+            /*Compare the input name with the last item of the index in names, ergo the surname.
             * This allows for you to input a full name regularly, for convenience,  without the need of a separate attribute for surnames
+            * Reference: Le Callonnec, S. (2013). Java: Getting a substring from a string starting after a particular character. [online] Stack Overflow. Available at: https://stackoverflow.com/a/14316548.
             * */
             if (student.getName().substring(student.getName().lastIndexOf(" ") + 1).equalsIgnoreCase(searchQuery)) {
                 println("Student with query: " + "'" + searchQuery + "'" + " was found:");
@@ -202,7 +215,7 @@ public class College {
     public void courseNameSearch (String searchQuery){
         boolean found = false;
         for (Course course : courseList) {
-            if (course.getTitle().equalsIgnoreCase(searchQuery)) {
+            if (course.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
                 println("Course with query: " + "'" + searchQuery + "'" + " was found:");
                 println(course.displayRecord());
                 found = true;
@@ -215,10 +228,10 @@ public class College {
 
     /**
      * Search for a course with a specified ID number; and output if found
-     * @param IDQuery ID of the student you want to remove
+     * @param IDQuery ID of the course you want to search
      */
     public void courseIDSearch(int IDQuery) {
-        if (validStudentID(IDQuery)) {
+        if (validCourseID(IDQuery)) {
             boolean found = false;
             for (Course course : courseList) {
                 if (course.getCourseID() == IDQuery) {
@@ -238,14 +251,23 @@ public class College {
      * @param courseQuery The name of the course
      */
     public void nameRemove(String courseQuery){
-        for (Enrolment encourse : enrolList){
-            encourse.setCourseID(0000);
+        for (Enrolment course : enrolList){
+            course.setCourseID(0000);
         }
-        for (int i = 0; i < courseList.size(); i++){
-            if (courseList.contains(courseQuery)){
-                println("Course:  " + courseList.get(i).getTitle() + "with ID: " + courseList.get(i).getCourseID() + " has been removed");
-                courseList.remove(i);
+        boolean found = false;
+        // Setup Iterator for Course List
+        Iterator<Course> coIterator = courseList.iterator();
+        // Loop over courses with course iterator
+        while (coIterator.hasNext()) {
+            Course course = coIterator.next();
+                if (course.getTitle().toLowerCase().contains(courseQuery.toLowerCase())) {
+                    println("Course:  " + course.getTitle() + "with ID: " + course.getCourseID() + " has been removed");
+                    coIterator.remove();
+                    found = true;
+                }
             }
+        if (!found) {
+            println("Course Title containing the query:  " + courseQuery + " could not be found");
         }
     }
 
@@ -254,18 +276,21 @@ public class College {
      * @param IDQuery ID of the course to remove
      */
     public void courseIDRemove(int IDQuery) {
-       if (validStudentID(IDQuery)){
-            boolean found = false;
-            for (int i = 0; i < courseList.size(); i++) {
-                if (IDQuery == courseList.get(i).getCourseID()) {
-                    println("Removing course: " + courseList.get(i).getTitle());
-                    courseList.remove(i);
+        Iterator<Course> coIterator = courseList.iterator();
+        boolean found = false;
+        // Loop over courses with course iterator
+        while (coIterator.hasNext()) {
+            if (validCourseID(IDQuery)) {
+                Course course = coIterator.next();
+                if (IDQuery == course.getCourseID()) {
+                    println("Removing course: " + course.getTitle() + " (ID: " + course.getCourseID() + ")");
+                    coIterator.remove();
                     found = true;
                 }
-                if (!found) {
-                    println("Course with the entered ID was not found");
-                }
             }
+        }
+        if (!found) {
+            println("Course with the entered ID was not found");
         }
     }
 
@@ -282,8 +307,8 @@ public class College {
     // ENROLMENT METHODS
     //#######################################################################
 
-    public void enrol(int studentID, int courseID, GregorianCalendar enrolDate){
-        if (studentID < 1000 || courseID < 1000 ){
+    public void enrol(int studentID, int courseID, LocalDate enrolDate){
+        if (studentID < 1000 || courseID < 100 ){
             println("Invalid IDs input, try again");
         }
         else {
@@ -307,11 +332,11 @@ public class College {
             if (!found) {
                 println("Course with that ID is not in the list");
             }
+
             else {
                 enrolList.add(new Enrolment(studentID, courseID, enrolDate));
-                SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-                String dateString = formatDate.format(enrolDate.getTime());
-                println("Student with the ID: " + studentID + " has been enrolled in the course: " + courseID + " on: " + dateString);
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                println("Student with the ID: " + studentID + " has been enrolled in the course: " + courseID + " on: " + enrolDate.format(format));
             }
         }
     }
@@ -322,7 +347,7 @@ public class College {
      * @param courseID Course ID to withdraw from
      */
     public void withdraw(int studentID, int courseID) {
-        if (validStudentID(studentID) && validStudentID(courseID)){
+        if (validStudentID(studentID) && validCourseID(courseID)){
             boolean found = false;
             for (Enrolment student : enrolList) {
                 if (student.getStudentID() == studentID && student.getCourseID() == courseID) {
@@ -354,7 +379,7 @@ public class College {
             }
         }
         if (!found) {
-            println("Enrolments between those dates were not found");
+            println("Enrolment list is empty");
         }
     }
 
@@ -362,13 +387,13 @@ public class College {
      * Output all enrolments between given dates
      * @param startDate Start of date range to compare to (in DD-MM-YYYY)
      * @param endDate end of date range to compare to (in DD-MM-YYYY)
-     * @throws ParseException for avoiding a ParseException error with parsing the formatted dates
      */
-    public void outputEnrolments(String startDate, String endDate) throws ParseException {
+    public void outputEnrolments(String startDate, String endDate) {
         boolean found = false;
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        Date startD = format.parse(startDate);
-        Date endD = format.parse(endDate);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate startD = LocalDate.parse(startDate, format);
+        LocalDate endD = LocalDate.parse(endDate, format);
+
         for (Student student : studentList) {
             for (Course course : courseList) {
                 for (Enrolment enrol : enrolList) {
@@ -384,6 +409,7 @@ public class College {
        if (!found) {
            println("Enrolments between those dates were not found");
        }
+       //Date ensdf = new Date()
     }
 
     /**
@@ -396,7 +422,11 @@ public class College {
             for (Course course : courseList) {
                 for (Enrolment enrol : enrolList) {
                     if (enrol.getStudentID() == student.getStudentID() && enrol.getCourseID() == course.getCourseID()) {
-                        if (student.getName().equalsIgnoreCase(searchQuery)){
+                        /*Searches for an enrolment made under a specified student surname, refer to studentNameSearch() or studentNameRemove() for more information
+                         * */
+                        if (student.getName().substring(student.getName().lastIndexOf(" ") + 1).equalsIgnoreCase(searchQuery)) {
+                            println("Student with query: " + "'" + searchQuery + "'" + " was found:");
+                            println("");
                             println(enrol.displayRecord(student, course));
                             found = true;
                         }
@@ -405,7 +435,7 @@ public class College {
             }
         }
         if (!found) {
-            println("Enrolments between those dates were not found");
+            println("Enrolments under this student were not found");
         }
     }
     /**
@@ -429,7 +459,7 @@ public class College {
             }
 
             if (!found) {
-                println("Enrolments between those dates were not found");
+                println("Enrolments made under that student ID not found");
             }
         }
     }
@@ -440,83 +470,5 @@ public class College {
     public static void println(String s){
         System.out.println(s);
     }
-/*
-    public static void main(String[] args){
-        College Class1 = new College();
-        Class1.add(new Student(1234,"Michael Townsley","098329823"));
-        Class1.add(new Student(1894,"Beany Beanio","098329973"));
-        Class1.add(new Student(2045, "Jennifer Brown", "075891234"));
-        Class1.add(new Student(3156, "David Rodriguez", "073425678"));
-        Class1.add(new Student(4267, "Samantha Lee", "079345678"));
-        Class1.add(new Student(5378, "Ahmed Khan", "071456789"));
-        Class1.add(new Student(6489, "Priya Patel", "077567890"));
-        Class1.add(new Student(7591, "Ryan Chen", "074678901"));
-        Class1.add(new Student(8602, "Olivia Wilson", "072789012"));
-        Class1.add(new Student(9713, "Jamal Washington", "078890123"));
-        Class1.add(new Student(1824, "Sophia Garcia", "076901234"));
-        Class1.add(new Student(2935, "Maddie Kim", "073012345"));
-        Class1.outputStudents();
-        System.out.println("-----------------------------------------------------------------");
-        Class1.add(new Course(1893, "OOP Programming", "Computer Science", 10000.56));
-        Class1.add(new Course(2156, "Data Structures and Algorithms", "Computer Science", 11000.25));
-        Class1.add(new Course(3278, "Database Management Systems", "Computer Science", 10000.75));
-        Class1.add(new Course(3412, "Computer Networks", "Computer Science", 11000.00));
-        Class1.add(new Course(4125, "Artificial Intelligence", "Computer Science", 12000.50));
-        Class1.add(new Course(4367, "Web Development", "Computer Science", 10000.25));
-
-        Class1.add(new Course(2201, "Calculus and Analysis", "Mathematics", 9500.00));
-        Class1.add(new Course(2305, "Linear Algebra", "Mathematics", 9000.75));
-        Class1.add(new Course(2410, "Discrete Mathematics", "Mathematics", 9200.50));
-        Class1.add(new Course(2515, "Probability and Statistics", "Mathematics", 9800.25));
-        Class1.add(new Course(2620, "Number Theory", "Mathematics", 9300.00));
-
-        Class1.add(new Course(3501, "Quantum Physics", "Science", 10500.00));
-        Class1.add(new Course(3605, "Organic Chemistry", "Science", 10800.75));
-        Class1.add(new Course(3710, "Molecular Biology", "Science", 11200.50));
-        Class1.add(new Course(3815, "Astronomy and Astrophysics", "Science", 10600.25));
-        Class1.add(new Course(3920, "Environmental Science", "Science", 9900.00));
-
-        Class1.add(new Course(5101, "Human Anatomy", "Medicine", 13500.00));
-        Class1.add(new Course(5205, "Pharmacology", "Medicine", 14000.75));
-        Class1.add(new Course(5310, "Clinical Medicine", "Medicine", 15200.50));
-        Class1.add(new Course(5415, "Medical Ethics", "Medicine", 12600.25));
-        Class1.add(new Course(5520, "Public Health", "Medicine", 13900.00));
-
-        Class1.add(new Course(4701, "Structural Engineering", "Engineering", 12500.00));
-        Class1.add(new Course(4805, "Electrical Circuits", "Engineering", 12800.75));
-        Class1.add(new Course(4910, "Mechanical Systems", "Engineering", 13200.50));
-        Class1.add(new Course(5015, "Chemical Engineering", "Engineering", 12600.25));
-        Class1.add(new Course(5120, "Civil Engineering Design", "Engineering", 12900.00));
-        Class1.outputCourses();
-
-        System.out.println("-----------------------------------------------------------------");
-        Class1.studentIDSearch(4267);
-        System.out.println();
-        Class1.studentNameSearch("Lee");
-        System.out.println();
-        Class1.courseIDSearch(1893);
-        System.out.println();
-        Class1.courseNameSearch("OOP");
-        System.out.println("-----------------------------------------------------------------");
-        Class1.studentCount();
-        Class1.courseCount();
-        System.out.println("-----------------------------------------------------------------");
-        Class1.courseIDRemove(1893);
-        Class1.outputCourses();
-        System.out.println("-----------------------------------------------------------------");
-        Class1.studentIDRemove(1234);
-        Class1.outputStudents();
-
-
-        Class1.enrol(2935,4367,(new GregorianCalendar(2009,05,20)));
-        Class1.enrol(7591,3412,(new GregorianCalendar(2012,07,19)));
-        Class1.enrol(6489, 3278, new GregorianCalendar(2018, 04,20));
-        Class1.enrol(6489, 4125, (new GregorianCalendar(2018, 05, 19)));
-        Class1.enrol(7591, 3278, (new GregorianCalendar(2018, 04, 20)));
-        System.out.println("-------------------------------------------------------------------------------------------");
-        Class1.outputEnrolments();
-
-    }
- */
 
 }

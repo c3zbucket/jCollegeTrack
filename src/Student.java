@@ -19,7 +19,7 @@ public class Student {
      * Individual Student constructor method
      */
     public Student(String name, String phoneNo) {
-        this.studentID = validID(studentID);
+        this.studentID = genID();
         this.name = name;
         this.phoneNo = validphoneNo(phoneNo);
     }
@@ -36,17 +36,30 @@ public class Student {
      * Mutator to set a student's ID
      * @return ID of the student
      */
-    public void setStudentID() {
+    public void setStudentID(int studentID) {
         this.studentID = validID(studentID);
     }
 
     /**
+     * Method to generate a new ID
+     * @param studentID student ID to increment
+     * @return a new generated student ID
+     */
+    protected int genID() {
+        int genID = nextID++;
+        if (nextID< 1000 || nextID > 9999){
+            throw new IllegalArgumentException("ID is not valid, must be 4 digits");
+        }
+        return genID;
+    }
+
+
+    /**
      * Method to validate student ID input
-     * @param studentID
-     * @return a generated student ID, if valid
+     * @param studentID student ID to vaidate
+     * @return the student ID , if valid
      */
     protected int validID(int studentID){
-        this.studentID = nextID++;
         if (studentID < 1000 || studentID > 9999){
             throw new IllegalArgumentException("ID is not valid, must be 4 digits");
         }
@@ -72,7 +85,7 @@ public class Student {
      */
     public String validphoneNo(String phoneNo){
         if (phoneNo.length() != 11){
-            throw new IllegalArgumentException("Invalid number, must be 11 characters");
+            throw new IllegalArgumentException("Invalid phone number, must be 11 characters");
         }
         return phoneNo;
     }

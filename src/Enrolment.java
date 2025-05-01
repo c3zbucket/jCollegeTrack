@@ -1,11 +1,8 @@
 /**
  * Import required libraries
  */
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Child class that handles enrolments
@@ -20,7 +17,7 @@ public class Enrolment {
     private int courseID;
      /** Date of enrolment*/
      /** Assign GregorianCalender library as a datatype for the enrolment date*/
-    private GregorianCalendar enrolDate;
+    private LocalDate enrolDate;
 
     /**
      * Enrolment constructor method for Enrollment ArrayList and Date attribute
@@ -28,7 +25,7 @@ public class Enrolment {
      * @param courseID ID of enrolled Courses
      * @param enrolDate Date of enrolment
      */
-    public Enrolment(int studentID, int courseID, GregorianCalendar enrolDate) {
+    public Enrolment(int studentID, int courseID, LocalDate enrolDate) {
         this.studentID = studentID;
         this.courseID = courseID;
         this.enrolDate = enrolDate;
@@ -66,9 +63,8 @@ public class Enrolment {
      * @return formatted enrolment date
      */
     protected String getDate() {
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-        String dateString = formatDate.format(enrolDate.getTime());
-        return dateString;
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return enrolDate.format(formatDate);
     }
 
     /**
@@ -77,16 +73,15 @@ public class Enrolment {
      * @param endD
      * @return
      */
-  protected boolean compareDate(Date startD, Date endD) throws ParseException {
-      Date enrolD = enrolDate.getTime();
-      return (enrolD.compareTo(startD) >= 0 && enrolD.compareTo(endD) <= 0);
+  protected boolean compareDate(LocalDate startD, LocalDate endD) {
+      return (!enrolDate.isBefore(startD) && !enrolDate.isAfter(endD));
    }
 
     /**
      * Mutator to set the date of enrolment
      * @param enrolDate the date of the enrolment
      */
-    protected void setDate(GregorianCalendar enrolDate) {
+    protected void setDate(LocalDate enrolDate) {
         this.enrolDate = enrolDate;
     }
 

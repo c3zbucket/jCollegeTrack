@@ -62,13 +62,14 @@ public class Course {
             case "COMP":
                 compID++;
                 if (compID > 199) {
+                    // Output an error and stop the program if a course under COMP has a course ID greater than 199
                     throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
                 } else {
                     this.courseID = compID;
                     return courseID;
                 }
             case "MATH":
-                mathID = mathID++;
+                mathID++;
                 if (mathID > 299) {
                     throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
                 } else {
@@ -115,6 +116,7 @@ public class Course {
                     this.courseID = desiID;
                     return courseID;
                 }
+                // The default case
             default:
                     throw new IllegalArgumentException("Cannot register course: maximum limit of courses under this department (100) has been reached");
         }
@@ -133,7 +135,7 @@ public class Course {
      */
     public void setCourseID(int courseID) {
         // If the course ID is invalid (under 1000 or over 9000), prevent it from being set
-        if (courseID < 1000 || courseID > 9000) {
+        if (courseID < 100 || courseID > 900) {
             System.out.println("Invalid Course ID entered; try again");
         }
         this.courseID = courseID;
