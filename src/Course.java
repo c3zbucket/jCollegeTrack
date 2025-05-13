@@ -1,7 +1,10 @@
-import java.text.DecimalFormat;
+/**
+ * Import required libraries
+ */
+import java.text.DecimalFormat; //For formatting decimals such as involving currency
 
 /**
- * Main class handling individual course data
+ * Class handling individual course data
  * @author Mueez Ahmad
  * @version 10/04/2025
  */
@@ -11,7 +14,7 @@ public class Course {
     /**
      * ID of the course
      */
-    protected int courseID; // input val as it needs to be pos int;
+    private int courseID; // input val as it needs to be pos int;
 
     /**
      * Title of the course
@@ -57,8 +60,9 @@ public class Course {
      * Method to generate course ID depending on it's department
      * @param dept department of the course to generate the ID for, if valid
      */
-    public int courseIDGen(String dept) {
-        switch (dept) {
+    protected int courseIDGen(String dept) {
+        switch (dept) { // Switch case to assign a unique course an ID depending on the 'code' entered
+                        // Source: Oracle (2017). The JavaTM Tutorials | Switch statements. [online] Oracle.com. Available at: https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html.
             case "COMP":
                 compID++;
                 if (compID > 199) {
@@ -126,9 +130,8 @@ public class Course {
      * Accessor to return a course's ID
      * @return ID of the course
      */
-    public int getCourseID() {
-        return courseID;
-    }
+    public int getCourseID() {return courseID;}
+
     /**
      * Mutator to set a course's ID
      * @param courseID ID of the course
@@ -145,24 +148,20 @@ public class Course {
      * Accessor to return a course's title
      * @return title of the course
      */
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() {return title;}
 
     /**
      * Mutator to set the title of the course
      * @param title title of the course
      */
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public void setTitle(String title) {this.title = title;}
 
     /**
      * Accessor to return a course's dept
      * @return dept of the course
      */
     public String getDept() {
-        switch(dept){
+        switch(dept){ //Switch case to assign a department to a 4 letter 'code' entered
             case "COMP":
                 return "Computing";
             case "MATH":
@@ -182,25 +181,22 @@ public class Course {
      * Mutator to set the dept of the course
      * @param dept type of the course
      */
-    public void setDept(String dept) {
-        this.dept = dept;
-    }
+    public void setDept(String dept) {this.dept = dept;}
 
     /**
      * Accessor to return a course's fees and format it in a readable format
      * @return fees of the course
      */
     public String getCourseFee() {
-        DecimalFormat feeFormat = new DecimalFormat(("###,###,###.##"));
+        DecimalFormat feeFormat = new DecimalFormat(("###,###,###.##")); // Format course fee as a proper decimal in hundreds and tenths
+        //Source: Oracle (2025b). Java Docs | DecimalFormat . [online] docs.oracle.com. Available at: https://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html.:
         return feeFormat.format(courseFee);
     }
     /**
      * Mutator to set a course's fees
      * @param courseFee fees of the course
      */
-    public void setCourseFee(double courseFee) {
-        this.courseFee = courseFee;
-    }
+    public void setCourseFee(double courseFee) {this.courseFee = courseFee;}
     /**
      * Output a full record of a course
      * @return a record of the course including corresponding details.

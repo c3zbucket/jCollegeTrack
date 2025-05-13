@@ -1,11 +1,11 @@
 /**
  * Import required libraries
  */
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate; //Manipulate dates easily; used in conjunction with java.DateTimeFormatter
+import java.time.format.DateTimeFormatter; //Format dates easily; used in conjunction with java.Date
 
 /**
- * Child class that handles enrolments
+ * Class that handles enrolments
  * @author Mueez Ahmad
  * @version
  */
@@ -47,24 +47,24 @@ public class Enrolment {
         return courseID;
     }
 
-    /**
-     * Mutator to set the enrolled course ID
-     * @param courseID the enrolled course ID to modify
-     */
-    protected void setCourseID(int courseID){
-        if (courseID < 1000) {
-            System.out.println("Invalid Course ID entered; try again");
-        }
-        this.courseID = courseID;
-    }
+//    /**
+//     * Mutator to set the enrolled course ID
+//     * @param courseID the enrolled course ID to modify
+//     */
+//    protected void setCourseID(int courseID) {
+//        if (courseID < 1000) {
+//            System.out.println("Invalid Course ID entered; try again");
+//        }
+//        this.courseID = courseID;
+//    }
 
     /**
      * Accessor to get enrolment date and format it in a readable format
      * @return formatted enrolment date
      */
     protected String getDate() {
-        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return enrolDate.format(formatDate);
+        DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy"); //Format date in dd-mm-yyyy format
+        return enrolDate.format(formatDate); //Return formatted date in that format
     }
 
     /**
@@ -78,14 +78,6 @@ public class Enrolment {
    }
 
     /**
-     * Mutator to set the date of enrolment
-     * @param enrolDate the date of the enrolment
-     */
-    protected void setDate(LocalDate enrolDate) {
-        this.enrolDate = enrolDate;
-    }
-
-    /**
      * Output a record of the student alongside what courses they are enrolled in
      * @param student The enrolled student referenced with the student class
      * @param course The enrolled student's course referenced with the course class
@@ -93,7 +85,7 @@ public class Enrolment {
      */
     public String displayRecord(Student student, Course course) {
         System.out.println("-------------------------------------------------------------------------------------------------------");
-        return student.displayRecord() + "\n" +
+        return student.displayRecord() + "\n" + //Output subsequent string on next line
                 course.displayRecord() + "\n" +
                 "Enrolled in: " + getDate() + "\n" +
                 "-------------------------------------------------------------------------------------------------------";

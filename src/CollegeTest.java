@@ -1,6 +1,5 @@
 /**Import required libraries*/
 
-import java.text.ParseException;
 import java.time.LocalDate;
 
 /**
@@ -9,12 +8,6 @@ import java.time.LocalDate;
  * @version 10/04/2025
  */
 public class CollegeTest {
-
-    /**
-     * Constructor method
-     */
-    public CollegeTest() {
-    }
 
     // To minimise code length, some user requirement tests have been combined
 
@@ -113,6 +106,22 @@ public class CollegeTest {
     }
 
     /**
+     * Additional Functionality Test method 3oc |
+     * Removing a student with a given name
+     */
+    public void test_003oc(String searchQuery) {
+        println("Test 3c | Removing a Student With a Given Surname ---------------------------");
+        println("--------------------------------- Test 3oc  ---------------------------------");
+        College st = new College();
+        populateStudents(st);
+        printStudents(st);
+        studentNameRemove(st, searchQuery);
+        println("-----------------------");
+        printStudents(st);
+        println("--------------------------------- Test 3oc  ---------------------------------");
+    }
+
+    /**
      * Test method 4a |
      * Returning a course object with a particular ID number
      */
@@ -140,18 +149,34 @@ public class CollegeTest {
 
     /**
      * Test method 4c |
-     * Removing a course with a given ID number
+     * Removing a course with a given ID
      */
     public void test_004c(int IDQuery) {
-        println("Test 4c | Removing a Course With a Given ID Number --------------------------");
-        println("--------------------------------- Test 4c  ----------------------------------");
+        println("Test 4oc | Removing a Course With a Given ID Number -------------------------");
+        println("--------------------------------- Test 4c  ---------------------------------");
         College st = new College();
         populateCourses(st);
         printCourses(st);
         courseIDRemove(st, IDQuery);
         println("-----------------------");
         printCourses(st);
-        println("--------------------------------- Test 4c  ----------------------------------");
+        println("--------------------------------- Test 4c  ---------------------------------");
+    }
+
+    /**
+     * Additional Functionality method 4oc
+     * Removing a course with a given title
+     */
+    public void test_004oc(String searchQuery) {
+        println("Test 4oc | Removing a Course With a Given Title -----------------------------");
+        println("--------------------------------- Test 4oc  ---------------------------------");
+        College st = new College();
+        populateCourses(st);
+        printCourses(st);
+        courseNameRemove(st, searchQuery);
+        println("-----------------------");
+        printCourses(st);
+        println("--------------------------------- Test 4oc  ---------------------------------");
     }
 
     /**
@@ -191,7 +216,7 @@ public class CollegeTest {
      * Test method 6a |
      * Outputting enrolments made between given dates
      */
-    public void test_006a(String startDate, String endDate) throws ParseException {
+    public void test_006a(String startDate, String endDate)  {
         println("Test 6a | Outputting Enrolments Between Given Dates ------------------------");
         println("--------------------------------- Test 6a  ---------------------------------");
         College st = new College();
@@ -246,6 +271,7 @@ public class CollegeTest {
         st.add(new Student("David Rodriguez", "07342567458"));
         st.add(new Student("Samantha Lee", "07934566778"));
         st.add(new Student("Makoto Yuki", "07301849975"));
+        st.add(new Student("Connor Brown", "07589186834"));
         st.add(new Student("Ahmed Mohammed Khan", "07145678469"));
         st.add(new Student("Priya Patel", "07756789700"));
         st.add(new Student("Cal Enders", "08901898009"));
@@ -306,9 +332,13 @@ public class CollegeTest {
         st.enrol(1001, 302, (LocalDate.of(2024, 5, 20)));
         st.enrol(1006, 302, (LocalDate.of(2024, 7, 19)));
         st.enrol(1006, 402, (LocalDate.of(2025, 4, 20)));
+        st.enrol(1008, 203, (LocalDate.of(2024, 10, 10)));
+        st.enrol(1008, 204, (LocalDate.of(2025, 10, 25)));
         st.enrol(1007, 101, (LocalDate.of(2024, 5, 19)));
+        st.enrol(1012, 302, (LocalDate.of(2024, 9, 25)));
         st.enrol(1010, 102, (LocalDate.of(2025, 4, 20)));
-        st.enrol(1014, 102, (LocalDate.of(2024, 6, 23)));
+        st.enrol(1015, 105, (LocalDate.of(2025, 8, 30)));
+        st.enrol(1015, 102, (LocalDate.of(2024, 6, 23)));
         println("********************************************");
     }
 
@@ -380,7 +410,7 @@ public class CollegeTest {
      * @param startDate start date to compare to enrolment date
      * @param endDate   end date to compare to enrolment date
      */
-    public void printEnrolments(College st, String startDate, String endDate) throws ParseException {
+    public void printEnrolments(College st, String startDate, String endDate)  {
         st.outputEnrolments(startDate, endDate);
     }
 
@@ -434,6 +464,25 @@ public class CollegeTest {
     }
 
     /**
+     * Remove a student with a given surname
+     *
+     * @param st          an object instance of the college class
+     * @param searchQuery surname of the student to be removed
+     */
+    public void studentNameRemove(College st, String searchQuery) {
+        st.studentNameRemove(searchQuery);
+    }
+    /**
+     * Remove a course with a given title
+     *
+     * @param st          an object instance of the college class
+     * @param searchQuery title of the course to be removed
+     */
+    public void courseNameRemove(College st, String searchQuery) {
+        st.courseNameRemove(searchQuery);
+    }
+
+    /**
      * Withdraw a student from a course with a given student ID and course ID
      *
      * @param st             an object instance of the college class
@@ -458,7 +507,7 @@ public class CollegeTest {
      * Main method to execute tests
      * @param args standard placeholder arguments for a java class to function
      */
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args){
 
         /**Creating an object of type CollegeTest to run test methods*/
         CollegeTest st = new CollegeTest();
@@ -478,9 +527,14 @@ public class CollegeTest {
         /**Run test method 2a, 2c - Add and output courses */
         //st.test_002ac();
 
-
         /**Run test method 2b - Search for a courses with an ID*/
         //st.test_002b(104);
+
+            //Entering a course ID not in the records
+            //st.test_002b(324);
+
+            //Entering an invalid course ID (Lower than 100 or higher than 999)
+            //st.test_002b(7839);
 
         /**Run test method 3a - Return a student with a given ID*/
         //st.test_003a(1012);
@@ -488,8 +542,14 @@ public class CollegeTest {
         /**Run test method 3b - Output students that match a given surname*/
         //st.test_003b("Brown");
 
+            //Entering a surname not in the records
+            //st.test_003b("Roberts");
+
         /**Run test method 3c - Remove a student with a given ID*/
         //st.test_003c(1011);
+
+        /**Run additional functionality test method 3oc - Remove student(s) with a given surname*/
+        //st.test_003oc("Brown");
 
         /**Run test method 4a - Return a course with a given ID*/
         //st.test_004a(202);
@@ -500,20 +560,23 @@ public class CollegeTest {
         /**Run test method 4c - Remove a course with a given ID*/
         //st.test_004c(503);
 
+        /**Run additional functionality test method 4oc - Remove course(s) with a given name*/
+        //st.test_004oc("Data");
+
         /**Run test method 5a,5c - Enrol students and outputting their enrolments*/
         //st.test_005ac();
 
         /**Run test method 5b - Removing an enrolment for given student and course ID numbers*/
-        //st.test_005b(1014, 102);
+        //st.test_005b(1015, 102);
 
         /**Run test method 6a - Output enrolments made between given dates */
         //st.test_006a("23-01-2024", "24-07-2024");
 
-        /**Run additional functionality test method 6a - Output enrolments made under a given student surname */
+        /**Run additional functionality test method 6oa - Output enrolments made under a given student surname */
         //st.test_006oa("Kim");
 
-        /**Run additional functionality test method 6a - Output enrolments made under a given student ID */
-        //st.test_006ob(9238);
+        /**Run additional functionality test method 6ob - Output enrolments made under a given student ID */
+        //st.test_006ob(1008);
 
     }
 
