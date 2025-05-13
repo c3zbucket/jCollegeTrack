@@ -39,6 +39,7 @@ public class College {
     }
 
     /**
+     * Added functionality
      * Method to check if Student ID inputs are valid
      * @param IDQuery the student ID to check validity for
      * @return if validity of th input student ID
@@ -53,6 +54,7 @@ public class College {
     }
 
     /**
+     * Added functionality
      * Method to check if Course ID inputs are valid
      * @param IDQuery the course ID to check validity for
      * @return if validity of th input course ID
@@ -225,7 +227,7 @@ public class College {
     }
 
     /**
-     * Search all courses that match a query; and output if foundA
+     * Search all courses that match a query; and output if found
      * @param searchQuery Name to search by
      */
     public void courseNameSearch (String searchQuery){
@@ -271,6 +273,7 @@ public class College {
     }
 
     /**
+     * Added functionality
      * Remove a specified course by name
      * @param courseQuery The name of the course
      */
@@ -451,6 +454,7 @@ public class College {
     }
 
     /**
+     * Added functionality
      * Output enrolments for a given surname
      * @param searchQuery the surname of the student you want to search for
      */
@@ -484,6 +488,7 @@ public class College {
         }
     }
     /**
+     * Added functionality
      * Output enrolments for a given student ID
      * @param IDQuery student ID to find enrolments for
      */

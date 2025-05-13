@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter; //Format dates easily; used in conjun
 /**
  * Class that handles enrolments
  * @author Mueez Ahmad
- * @version
+ * @version 20/4/2025
  */
 public class Enrolment {
 
@@ -46,17 +46,6 @@ public class Enrolment {
     protected int getCourseID() {
         return courseID;
     }
-
-//    /**
-//     * Mutator to set the enrolled course ID
-//     * @param courseID the enrolled course ID to modify
-//     */
-//    protected void setCourseID(int courseID) {
-//        if (courseID < 1000) {
-//            System.out.println("Invalid Course ID entered; try again");
-//        }
-//        this.courseID = courseID;
-//    }
 
     /**
      * Accessor to get enrolment date and format it in a readable format

@@ -14,6 +14,7 @@ public class CollegeTest {
     /**
      * Test method 1a,1c |
      * Adding and outputting students
+     *
      */
     public void test_001ac() {
         println("Test 1a,1c | Adding and Outputting Students --------------------------------");
@@ -27,6 +28,7 @@ public class CollegeTest {
     /**
      * Test method 1b |
      * Searching for a student with a given ID number
+     * @param IDQuery the student ID number to search for
      */
     public void test_001b(int IDQuery) {
         println("Test 1b | Searching For A Student With A Given ID Number -------------------");
@@ -53,6 +55,7 @@ public class CollegeTest {
     /**
      * Test method 2b |
      * Searching for a course with a given ID number
+     * @param IDQuery the course ID number to search for
      */
     public void test_002b(int IDQuery) {
         println("--------------------------------- Test 2b  ----------------------------------");
@@ -66,6 +69,7 @@ public class CollegeTest {
     /**
      * Test method 3a |
      * Return student object with given student ID number
+     * @param IDQuery the student ID number to retrieve
      */
     public void test_003a(int IDQuery) {
         println("Test 3a | Return student object with given student ID number ----------------");
@@ -79,6 +83,7 @@ public class CollegeTest {
     /**
      * Test method 3b |
      * Output students that match a given surname
+     * @param searchQuery the surname to search for
      */
     public void test_003b(String searchQuery) {
         println("Test 3b | Outputting Students That Match a Given Surname -------------------");
@@ -92,6 +97,7 @@ public class CollegeTest {
     /**
      * Test method 3c |
      * Removing a student with a given ID number
+     * @param IDQuery the ID number of the student to remove
      */
     public void test_003c(int IDQuery) {
         println("Test 3c | Removing a Student With a Given ID Number -------------------------");
@@ -108,6 +114,7 @@ public class CollegeTest {
     /**
      * Additional Functionality Test method 3oc |
      * Removing a student with a given name
+     * @param searchQuery the surname of the student to remove
      */
     public void test_003oc(String searchQuery) {
         println("Test 3c | Removing a Student With a Given Surname ---------------------------");
@@ -124,6 +131,7 @@ public class CollegeTest {
     /**
      * Test method 4a |
      * Returning a course object with a particular ID number
+     * @param IDQuery the course ID number to search for
      */
     public void test_004a(int IDQuery) {
         println("Test 3c | Returning a Course Object with a Given ID Number ------------------");
@@ -137,6 +145,7 @@ public class CollegeTest {
     /**
      * Test method 4b |
      * Outputting all courses whose title contains a given search string
+     * @param searchQuery the string to search for within course titles
      */
     public void test_004b(String searchQuery) {
         println("Test 4b | Outputting Courses That Match a Given Search String ---------------");
@@ -150,6 +159,7 @@ public class CollegeTest {
     /**
      * Test method 4c |
      * Removing a course with a given ID
+     * @param IDQuery the ID number of the course to remove
      */
     public void test_004c(int IDQuery) {
         println("Test 4oc | Removing a Course With a Given ID Number -------------------------");
@@ -166,6 +176,7 @@ public class CollegeTest {
     /**
      * Additional Functionality method 4oc
      * Removing a course with a given title
+     *@param searchQuery the title of the course to remove
      */
     public void test_004oc(String searchQuery) {
         println("Test 4oc | Removing a Course With a Given Title -----------------------------");
@@ -197,6 +208,8 @@ public class CollegeTest {
     /**
      * Test method 5b |
      * Removing an enrolment for given student and course ID numbers
+     * @param studentIDQuery the ID number of the student to withdraw
+     * @param courseIDQuery the ID number of the course to withdraw the student from
      */
     public void test_005b(int studentIDQuery, int courseIDQuery) {
         println("Test 5b | Removing an Enrolment For Given IDs ------------------------------");
@@ -215,6 +228,8 @@ public class CollegeTest {
     /**
      * Test method 6a |
      * Outputting enrolments made between given dates
+     * @param startDate the start date in string format (format should match system expectations)
+     * @param endDate the end date in string format (format should match system expectations)
      */
     public void test_006a(String startDate, String endDate)  {
         println("Test 6a | Outputting Enrolments Between Given Dates ------------------------");
@@ -231,6 +246,7 @@ public class CollegeTest {
     /**
      * Additional Functionality Test method 6oa |
      * Outputting enrolments under a student with a given surname
+     * @param searchQuery the surname to search enrolments made under
      */
     public void test_006oa(String searchQuery) {
         println("Test 6oa | Outputting Enrolments Under a Given Surname ----------------------");
@@ -246,6 +262,7 @@ public class CollegeTest {
     /**
      * Additional Functionality Test method 6ob |
      * Outputting enrolments under a student with a given ID
+     * @param IDQuery the student ID number to search enrolments made under
      */
     public void test_006ob(int IDQuery) {
         println("Test 6ob | Outputting Enrolments Under a Given ID ---------------------------");

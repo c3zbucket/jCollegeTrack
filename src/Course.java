@@ -32,6 +32,7 @@ public class Course {
     private double courseFee;
 
     /**
+     * Added functionality
      * IDs for each department to iterate from
      */
     private static int compID = 100;
@@ -57,6 +58,7 @@ public class Course {
     }
 
     /**
+     * Added functionality
      * Method to generate course ID depending on it's department
      * @param dept department of the course to generate the ID for, if valid
      */
@@ -133,7 +135,8 @@ public class Course {
     public int getCourseID() {return courseID;}
 
     /**
-     * Mutator to set a course's ID
+     * Added functionality
+     * Mutator to set a course's ID, if needed
      * @param courseID ID of the course
      */
     public void setCourseID(int courseID) {
@@ -157,6 +160,7 @@ public class Course {
     public void setTitle(String title) {this.title = title;}
 
     /**
+     * Added functionality
      * Accessor to return a course's dept
      * @return dept of the course
      */

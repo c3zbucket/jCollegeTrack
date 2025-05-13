@@ -44,6 +44,7 @@ public class Student {
     }
 
     /**
+     * Added functionality
      * Method to generate a new ID
      * @return a new generated student ID
      */
@@ -56,6 +57,7 @@ public class Student {
     }
 
     /**
+     * Added functionality
      * Method to validate student ID input
      * @param studentID student ID to vaidate
      * @return the student ID , if valid
@@ -80,6 +82,7 @@ public class Student {
     public void setName(String name) {this.name = name;}
 
     /**
+     * Added functionality
      * Method to validate phone number input
      * @param phoneNo phone number input to validate
      * @return phone number input, if valid
